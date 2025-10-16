@@ -3,7 +3,6 @@
 // ========================================
 
 // Variáveis globais
-let currentUser = null;
 let cart = [];
 let products = [];
 
@@ -28,76 +27,42 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadProducts() {
     console.log('🔍 Carregando produtos...');
     
-    try {
-        // Tentar carregar da API
-        const response = await fetch('https://carregado.store/api/products');
-        
-        if (response.ok) {
-            const data = await response.json();
-            console.log('✅ Produtos carregados da API:', data);
-            
-            if (data.success && data.data) {
-                products = data.data;
-                renderProducts();
-                return;
-            }
+    // Produtos estáticos (sem API por enquanto)
+    products = [
+        {
+            id: 1,
+            name: "Produto Exemplo 1",
+            description: "Descrição do produto exemplo 1",
+            price: 29.90,
+            image_url: "imagens/produto-padrao.jpg",
+            active: true
+        },
+        {
+            id: 2,
+            name: "Produto Exemplo 2", 
+            description: "Descrição do produto exemplo 2",
+            price: 49.90,
+            image_url: "imagens/produto-padrao.jpg",
+            active: true
+        },
+        {
+            id: 3,
+            name: "Produto Exemplo 3",
+            description: "Descrição do produto exemplo 3", 
+            price: 79.90,
+            image_url: "imagens/produto-padrao.jpg",
+            active: true
         }
-        
-        console.log('⚠️ API não funcionou, usando produtos estáticos');
-        
-        // Produtos estáticos de fallback
-        products = [
-            {
-                id: 1,
-                name: "Produto Exemplo 1",
-                description: "Descrição do produto exemplo 1",
-                price: 29.90,
-                image_url: "imagens/produto-padrao.jpg",
-                active: true
-            },
-            {
-                id: 2,
-                name: "Produto Exemplo 2", 
-                description: "Descrição do produto exemplo 2",
-                price: 49.90,
-                image_url: "imagens/produto-padrao.jpg",
-                active: true
-            },
-            {
-                id: 3,
-                name: "Produto Exemplo 3",
-                description: "Descrição do produto exemplo 3", 
-                price: 79.90,
-                image_url: "imagens/produto-padrao.jpg",
-                active: true
-            }
-        ];
-        
-        renderProducts();
-        
-    } catch (error) {
-        console.error('❌ Erro ao carregar produtos:', error);
-        
-        // Produtos de emergência
-        products = [
-            {
-                id: 1,
-                name: "Produto de Emergência",
-                description: "Produto carregado localmente",
-                price: 99.90,
-                image_url: "imagens/produto-padrao.jpg",
-                active: true
-            }
-        ];
-        
-        renderProducts();
-    }
+    ];
+    
+    console.log('✅ Produtos carregados:', products.length);
+    renderProducts();
 }
 
 function renderProducts() {
     console.log('🎨 Renderizando produtos:', products);
     
-    const productsContainer = document.getElementById('products');
+    const productsContainer = document.getElementById('productsGrid');
     if (!productsContainer) {
         console.error('❌ Container de produtos não encontrado');
         return;
