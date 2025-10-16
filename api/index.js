@@ -1,13 +1,14 @@
-// Vercel Functions - Ponto de entrada da API
+// API Routes para Vercel - Backend do Carregado Store
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 
-const authRoutes = require('./routes/auth');
-const paymentRoutes = require('./routes/payment');
-const productRoutes = require('./routes/products');
-const userRoutes = require('./routes/user');
+// Importar rotas
+const authRoutes = require('./auth');
+const paymentRoutes = require('./payment');
+const productRoutes = require('./products');
+const userRoutes = require('./user');
 
 const app = express();
 
@@ -28,10 +29,9 @@ app.use(helmet({
 }));
 
 // CORS configurado
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://carregado.store',
-  'https://www.carregado.store'
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+  'https://carregado-store-lk7ifp8wg-rafaels-projects-bc90a5e9.vercel.app',
+  'https://carregado-store.vercel.app'
 ];
 app.use(cors({
   origin: allowedOrigins,
@@ -42,19 +42,19 @@ app.use(cors({
 
 // Rate limiting
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutos
-  max: 100, // 100 requests por IP
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
   message: {
     error: 'Muitas requisições. Tente novamente em alguns minutos.',
-    retryAfter: 900
+    retryAfter: Math.ceil((parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000) / 1000)
   },
   standardHeaders: true,
   legacyHeaders: false,
 });
 
-app.use(limiter);
+app.use('/api/', limiter);
 
-// Middleware para parsing JSON
+// Body parsing
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -62,46 +62,49 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 // ROTAS DA API
 // ========================================
 
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    environment: process.env.NODE_ENV || 'production'
-  });
-});
-
-// Rotas da API
 app.use('/api/auth', authRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/user', userRoutes);
 
-// Rota raiz
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Carregado Store API',
-    version: '1.0.0',
-    status: 'online'
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    environment: process.env.NODE_ENV || 'production'
   });
 });
 
-// Middleware de erro
-app.use((error, req, res, next) => {
-  console.error('❌ Erro na API:', error);
-  res.status(500).json({
-    error: 'Erro interno do servidor',
-    code: 'INTERNAL_ERROR'
+// ========================================
+// MIDDLEWARE DE ERRO
+// ========================================
+
+app.use((err, req, res, next) => {
+  console.error('❌ Erro no servidor:', err);
+  
+  res.status(err.status || 500).json({
+    error: process.env.NODE_ENV === 'production' 
+      ? 'Erro interno do servidor' 
+      : err.message,
+    timestamp: new Date().toISOString()
   });
 });
 
 // 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
-    error: 'Rota não encontrada',
-    code: 'NOT_FOUND'
+    error: 'Endpoint não encontrado',
+    availableEndpoints: [
+      'GET /api/health',
+      'POST /api/auth/login',
+      'POST /api/auth/register',
+      'POST /api/payment/create-pix',
+      'GET /api/payment/status/:id',
+      'GET /api/products',
+      'GET /api/user/profile'
+    ]
   });
 });
 
-// Exportar para Vercel Functions
 module.exports = app;

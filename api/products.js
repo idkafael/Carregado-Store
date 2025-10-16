@@ -1,102 +1,237 @@
-// Vercel Function para produtos
+const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
+const jwt = require('jsonwebtoken');
 
-// Configuração do Supabase
+const router = express.Router();
+
+// Inicializar Supabase
 const supabase = createClient(
-  'https://vyibdpwhkklxzuxaouza.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5aWJkcHdoa2tseHp1eGFvdXphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjAxMTkxMDAsImV4cCI6MjA3NTY5NTEwMH0.ryqLcik3YEKklWygfw8xNTWMuNFC-oHRe8H0iY4FMrY'
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Produtos de fallback caso o Supabase não funcione
-const fallbackProducts = [
-  {
-    id: 1,
-    name: "Produto Exemplo 1",
-    description: "Descrição do produto exemplo 1",
-    price: 29.90,
-    image_url: "imagens/produto-padrao.jpg",
-    active: true,
-    created_at: new Date().toISOString()
-  },
-  {
-    id: 2,
-    name: "Produto Exemplo 2", 
-    description: "Descrição do produto exemplo 2",
-    price: 49.90,
-    image_url: "imagens/produto-padrao.jpg",
-    active: true,
-    created_at: new Date().toISOString()
-  },
-  {
-    id: 3,
-    name: "Produto Exemplo 3",
-    description: "Descrição do produto exemplo 3", 
-    price: 79.90,
-    image_url: "imagens/produto-padrao.jpg",
-    active: true,
-    created_at: new Date().toISOString()
-  }
-];
+// Middleware de autenticação
+const authenticateToken = (req, res, next) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-module.exports = async (req, res) => {
-  // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
+  if (!token) {
+    return res.status(401).json({
+      error: 'Token de acesso necessário',
+      code: 'MISSING_TOKEN'
+    });
   }
 
   try {
-    if (req.method === 'GET') {
-      console.log('🔍 Tentando buscar produtos do Supabase...');
-      
-      try {
-        // Tentar buscar do Supabase
-        const { data: products, error } = await supabase
-          .from('products')
-          .select('*')
-          .eq('active', true)
-          .order('id', { ascending: true });
-
-        if (error) {
-          console.error('❌ Erro do Supabase:', error);
-          throw error;
-        }
-
-        if (products && products.length > 0) {
-          console.log('✅ Produtos encontrados no Supabase:', products.length);
-          return res.json({
-            success: true,
-            data: products
-          });
-        } else {
-          console.log('⚠️ Nenhum produto no Supabase, usando fallback');
-          throw new Error('Nenhum produto encontrado');
-        }
-      } catch (supabaseError) {
-        console.log('⚠️ Erro no Supabase, usando produtos de fallback');
-        console.error('Erro:', supabaseError);
-        
-        return res.json({
-          success: true,
-          data: fallbackProducts,
-          fallback: true
-        });
-      }
-    } else {
-      res.status(405).json({
-        success: false,
-        error: 'Método não permitido'
-      });
-    }
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback-secret');
+    req.user = decoded;
+    next();
   } catch (error) {
-    console.error('❌ Erro na função:', error);
-    res.status(500).json({
-      success: false,
-      error: 'Erro interno do servidor'
+    return res.status(403).json({
+      error: 'Token inválido',
+      code: 'INVALID_TOKEN'
     });
   }
 };
+
+// ========================================
+// LISTAR PRODUTOS ATIVOS
+// ========================================
+router.get('/', async (req, res) => {
+  try {
+    const { data: products, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('active', true)
+      .order('id', { ascending: true });
+
+    if (error) {
+      console.error('❌ Erro ao buscar produtos:', error);
+      return res.status(500).json({
+        error: 'Erro ao buscar produtos',
+        code: 'DATABASE_ERROR'
+      });
+    }
+
+    res.json({
+      success: true,
+      data: products || []
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao listar produtos:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      code: 'INTERNAL_ERROR'
+    });
+  }
+});
+
+// ========================================
+// BUSCAR PRODUTO POR ID
+// ========================================
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const { data: product, error } = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', id)
+      .eq('active', true)
+      .single();
+
+    if (error || !product) {
+      return res.status(404).json({
+        error: 'Produto não encontrado',
+        code: 'PRODUCT_NOT_FOUND'
+      });
+    }
+
+    res.json({
+      success: true,
+      data: product
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao buscar produto:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      code: 'INTERNAL_ERROR'
+    });
+  }
+});
+
+// ========================================
+// LISTAR MODELOS ATIVOS
+// ========================================
+router.get('/models/list', async (req, res) => {
+  try {
+    const { data: models, error } = await supabase
+      .from('models')
+      .select('*')
+      .eq('active', true)
+      .order('id', { ascending: true });
+
+    if (error) {
+      console.error('❌ Erro ao buscar modelos:', error);
+      return res.status(500).json({
+        error: 'Erro ao buscar modelos',
+        code: 'DATABASE_ERROR'
+      });
+    }
+
+    res.json({
+      success: true,
+      data: models || []
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao listar modelos:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      code: 'INTERNAL_ERROR'
+    });
+  }
+});
+
+// ========================================
+// VERIFICAR SE USUÁRIO COMPROU PRODUTO
+// ========================================
+router.get('/:productId/purchased', authenticateToken, async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user.userId;
+
+    const { data: purchase, error } = await supabase
+      .from('purchases')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('product_id', productId)
+      .eq('status', 'confirmed')
+      .limit(1);
+
+    if (error) {
+      console.error('❌ Erro ao verificar compra:', error);
+      return res.status(500).json({
+        error: 'Erro ao verificar compra',
+        code: 'DATABASE_ERROR'
+      });
+    }
+
+    res.json({
+      success: true,
+      hasPurchased: purchase && purchase.length > 0
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao verificar compra:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      code: 'INTERNAL_ERROR'
+    });
+  }
+});
+
+// ========================================
+// OBTER DADOS DE DOWNLOAD (APENAS PARA COMPRADORES)
+// ========================================
+router.get('/:productId/download', authenticateToken, async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const userId = req.user.userId;
+
+    // Verificar se usuário comprou o produto
+    const { data: purchase, error: purchaseError } = await supabase
+      .from('purchases')
+      .select('*')
+      .eq('user_id', userId)
+      .eq('product_id', productId)
+      .eq('status', 'confirmed')
+      .single();
+
+    if (purchaseError || !purchase) {
+      return res.status(403).json({
+        error: 'Você não comprou este produto',
+        code: 'PRODUCT_NOT_PURCHASED'
+      });
+    }
+
+    // Buscar dados do produto
+    const { data: product, error: productError } = await supabase
+      .from('products')
+      .select('*')
+      .eq('id', productId)
+      .single();
+
+    if (productError || !product) {
+      return res.status(404).json({
+        error: 'Produto não encontrado',
+        code: 'PRODUCT_NOT_FOUND'
+      });
+    }
+
+    // Retornar dados de download (sem informações sensíveis)
+    res.json({
+      success: true,
+      data: {
+        productId: product.id,
+        productName: product.name,
+        downloadUrl: product.download_url,
+        downloadInstructions: product.download_instructions,
+        purchaseDate: purchase.paid_at,
+        modelId: purchase.model_id,
+        modelName: purchase.model_name
+      }
+    });
+
+  } catch (error) {
+    console.error('❌ Erro ao obter dados de download:', error);
+    res.status(500).json({
+      error: 'Erro interno do servidor',
+      code: 'INTERNAL_ERROR'
+    });
+  }
+});
+
+module.exports = router;
