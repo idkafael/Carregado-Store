@@ -29,7 +29,11 @@ app.use(helmet({
 }));
 
 // CORS configurado
-const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+  'http://localhost:3000',
+  'https://carregado.store',
+  'https://www.carregado.store'
+];
 app.use(cors({
   origin: allowedOrigins,
   credentials: true,
