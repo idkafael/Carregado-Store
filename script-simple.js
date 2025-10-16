@@ -165,26 +165,87 @@ function renderProducts() {
                         ` : ''}
                     </div>
                 </div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id})" style="
+                <button class="product-btn buy-btn" onclick="addToCart(${product.id})" style="
                     width: 100%;
-                    background: #4CAF50;
-                    color: white;
-                    border: none;
-                    padding: 12px 20px;
-                    border-radius: 8px;
-                    font-size: 16px;
-                    font-weight: 600;
+                    background: linear-gradient(135deg, #25D366, #1ea952, #25D366);
+                    background-size: 200% 100%;
+                    color: #ffffff;
+                    border: 2px solid rgba(255, 255, 255, 0.2);
+                    padding: 12px 15px;
+                    border-radius: 12px;
+                    font-size: 13px;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px;
                     cursor: pointer;
-                    transition: background 0.3s ease;
-                " onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4CAF50'">
-                    <i class="fas fa-cart-plus"></i>
-                    Adicionar ao Carrinho
+                    position: relative;
+                    overflow: hidden;
+                    transition: all 0.3s ease;
+                    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+                    animation: buttonPulse 3s ease-in-out infinite;
+                " onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 15px 40px rgba(37, 211, 102, 0.5)'; this.style.backgroundPosition='100% 50%'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 8px 25px rgba(37, 211, 102, 0.3)'; this.style.backgroundPosition='0% 50%'">
+                    <i class="fas fa-shopping-cart" style="font-size: 18px; animation: cartBounce 2s ease-in-out infinite;"></i>
+                    Comprar Agora
                 </button>
             </div>
         </div>
     `).join('');
     
     console.log('✅ Produtos renderizados com sucesso');
+    
+    // Adicionar animações CSS
+    addButtonAnimations();
+}
+
+// Função para adicionar animações dos botões
+function addButtonAnimations() {
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes buttonPulse {
+            0%, 100% {
+                box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+                background-position: 0% 50%;
+            }
+            50% {
+                box-shadow: 0 12px 35px rgba(37, 211, 102, 0.5);
+                background-position: 100% 50%;
+            }
+        }
+        
+        @keyframes cartBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+        
+        @keyframes buttonShimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+        
+        .product-btn.buy-btn::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: buttonShimmer 4s ease-in-out infinite;
+        }
+        
+        .product-btn.buy-btn:active {
+            transform: translateY(-1px);
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // ========================================
