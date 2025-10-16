@@ -70,7 +70,7 @@ const products = [
         originalPrice: "R$ 150,00",
         category: "all",
         image: "video",
-        videoUrl: "imagens/new privacy.mp4",
+        videoUrl: "imagens/New Privacy.mp4",
         autoDelivery: true,
         description: "✅ Tela Atualizada 2025 Quase Idêntica\n✅ Sistema de Entregável após confirmação de compra + Coleta de dados pra LTV\n✅ Dashboard própria com track de onde veio o Lead (Orgânico ou Tráfego Pago)\n✅ Sistema de pagamento PIX integrado SEM SAIR DA LANDING PAGE com QR Code automático e verificação em tempo real\n✅ Galeria interativa com blur effects, hover autoplay nos vídeos e marca d'água personalizada\n✅ Facebook Pixel configurado + lead tracking + UTM parameters para máxima conversão\n✅ ENTREGA IMEDIATA: código fonte completo + assets + documentação\n✅ Fácil Personalização: só trocar fotos/vídeos/pixel está pronto para vender",
         downloadLinks: {
@@ -161,7 +161,7 @@ const products = [
         autoDelivery: true,
         hasModelSelection: true,
         description: "👥 Modelos Profissionais para Escalar Seu Negócio\n📸 Fotos em alta qualidade para usar em suas campanhas\n🎯 Múltiplos modelos disponíveis (Catgirl, Paola Rosalina, Latoxicasz, Liiias)\n✅ Sistema de seleção interativo com carrossel\n💼 Ideal para e-commerce, marketing e produtos",
-        models: CARROSSEL_MODELOS_CONFIG ? CARROSSEL_MODELOS_CONFIG.modelos : [
+        models: (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG) ? CARROSSEL_MODELOS_CONFIG.modelos : [
             {
                 id: 1,
                 name: "Modelo Feminino 1",
@@ -226,10 +226,7 @@ let userDatabase = {
     ltvData: {}
 };
 
-// Elementos DOM
-const cartCountElement = document.querySelector('.cart-count');
-const categorySelect = document.getElementById('categorySelect');
-const productsGrid = document.getElementById('productsGrid');
+// Elementos DOM - serão obtidos dinamicamente quando necessário
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', function() {
@@ -245,10 +242,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Configurar event listeners
 function setupEventListeners() {
     // Dropdown de categorias
-    categorySelect.addEventListener('change', function(e) {
-        currentCategory = e.target.value;
-        renderProducts();
-    });
+    const categorySelect = document.getElementById('categorySelect');
+    if (categorySelect) {
+        categorySelect.addEventListener('change', function(e) {
+            currentCategory = e.target.value;
+            renderProducts();
+        });
+    }
 
     // Botão "Navegar produtos!" no hero
     const heroBtn = document.querySelector('.hero-btn');
@@ -261,22 +261,126 @@ function setupEventListeners() {
 
 // Renderizar produtos baseado na categoria selecionada
 function renderProducts() {
-    let filteredProducts;
+    console.log('🎨 Iniciando renderização de produtos...');
+    console.log('📊 Total de produtos:', products.length);
+    console.log('🏷️ Categoria atual:', currentCategory);
     
+    const productsContainer = document.getElementById('productsGrid');
+    if (!productsContainer) {
+        console.error('❌ Container de produtos não encontrado');
+        return;
+    }
+    
+    if (products.length === 0) {
+        productsContainer.innerHTML = '<p>Nenhum produto encontrado</p>';
+        return;
+    }
+    
+    let filteredProducts;
     if (currentCategory === 'all' || currentCategory === '') {
-        // Mostrar todos os produtos
         filteredProducts = products;
     } else {
-        // Filtrar por categoria específica
         filteredProducts = products.filter(product => product.category === currentCategory);
     }
+    
+    productsContainer.innerHTML = filteredProducts.map(product => `
+        <div class="product-card" data-product-id="${product.id}">
+            <div class="product-image">
+                ${product.videoUrl ? `
+                    <video autoplay muted loop style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                        <source src="${product.videoUrl}" type="video/mp4">
+                    </video>
+                ` : `
+                    <img src="${product.image}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                `}
+                ${product.autoDelivery ? `
+                    <div class="auto-delivery-tag" style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #25D366, #1ea952); color: white; padding: 4px 8px; border-radius: 12px; font-size: 9px; font-weight: 700; z-index: 10;">ENTREGA AUTOMÁTICA</div>
+                ` : ''}
+            </div>
+            <div class="product-title">${product.title}</div>
+            <div class="product-price">
+                ${product.price ? `
+                    <span class="price">${product.price}</span>
+                    ${product.originalPrice ? `<span class="original-price">${product.originalPrice}</span>` : ''}
+                ` : ''}
+            </div>
+            <div class="product-buttons">
+                ${product.price ? `
+                    <button class="product-btn buy-btn" onclick="addToCart(${product.id})">
+                        <i class="fas fa-shopping-cart"></i>
+                        Comprar Agora
+                    </button>
+                ` : `
+                    <button class="product-btn contact-btn" onclick="contactWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                        Entrar em Contato
+                    </button>
+                `}
+            </div>
+        </div>
+    `).join('');
+    
+    console.log('✅ Produtos renderizados com sucesso');
+    
+    // Adicionar estilos para preços
+    addPriceStyles();
+}
 
-    productsGrid.innerHTML = '';
-
-    filteredProducts.forEach(product => {
-        const productCard = createProductCard(product);
-        productsGrid.appendChild(productCard);
-    });
+// ========================================
+// ESTILOS DE PREÇOS
+// ========================================
+function addPriceStyles() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .product-price {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #25D366;
+        }
+        
+        .original-price {
+            font-size: 14px;
+            color: #999;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .product-image video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            transform: scale(1) !important;
+            zoom: 1 !important;
+        }
+        
+        .product-image img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: center !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            transform: scale(1) !important;
+            zoom: 1 !important;
+        }
+        
+        .product-image {
+            overflow: hidden !important;
+            position: relative !important;
+        }
+    `;
+    document.head.appendChild(style);
 }
 
 // Criar card do produto
@@ -437,7 +541,7 @@ function addToCart(productId) {
         }
         
         // Verificar se usuário está logado
-        if (!currentUser) {
+        if (!window.currentUser) {
             // Salvar produto pendente para compra após login
             pendingPurchase = {
                 productId: productId,
@@ -459,7 +563,10 @@ function addToCart(productId) {
 
 // Atualizar contador do carrinho
 function updateCartCount() {
-    cartCountElement.textContent = cartCount;
+    const cartCountElement = document.querySelector('.cart-count');
+    if (cartCountElement) {
+        cartCountElement.textContent = cartCount;
+    }
 }
 
 // Mostrar animação do carrinho
@@ -1072,15 +1179,15 @@ function simulatePaymentConfirmation(productId) {
     console.log('💳 Pagamento confirmado:', currentPurchase);
     
     // Atualizar LTV se usuário estiver logado
-    if (currentUser) {
+    if (window.currentUser) {
         console.log('👤 Usuário logado, atualizando LTV...');
         const purchaseAmount = parseFloat(product.price.replace('R$ ', '').replace(',', '.'));
-        updateUserLTV(currentUser.id, purchaseAmount);
+        updateUserLTV(window.currentUser.id, purchaseAmount);
         
         // Registrar compra
         const purchase = {
             id: purchaseId,
-            userId: currentUser.id,
+            userId: window.currentUser.id,
             productId: product.id,
             productName: product.title,
             amount: purchaseAmount,
@@ -1110,7 +1217,7 @@ function simulatePaymentConfirmation(productId) {
         console.log('🔗 Produto tem links de download, adicionando botão...');
         setTimeout(() => {
             // Verificar se o usuário realmente comprou este produto
-            if (currentUser && hasUserPurchasedProduct(currentUser.id, product.id)) {
+            if (window.currentUser && hasUserPurchasedProduct(window.currentUser.id, product.id)) {
                 console.log('✅ Adicionando botão de download para produto:', product.title);
                 addDownloadButtonToProduct(product.id);
             } else {
@@ -1165,7 +1272,7 @@ function initializeUserDatabase() {
     // Verificar se usuário está logado
     const savedUser = localStorage.getItem('currentUser');
     if (savedUser) {
-        currentUser = JSON.parse(savedUser);
+        window.currentUser = JSON.parse(savedUser);
         updateUserInterface();
     }
     
@@ -1179,8 +1286,8 @@ function saveUserDatabase() {
 }
 
 function saveCurrentUser() {
-    if (currentUser) {
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+    if (window.currentUser) {
+        localStorage.setItem('currentUser', JSON.stringify(window.currentUser));
     }
 }
 
@@ -1207,7 +1314,7 @@ function registerUser(userData) {
 function loginUser(email, password) {
     const user = userDatabase.users.find(u => u.email === email);
     if (user) {
-        currentUser = user;
+        window.currentUser = user;
         saveCurrentUser();
         updateUserInterface();
         console.log('🔐 Usuário logado:', user);
@@ -1217,7 +1324,7 @@ function loginUser(email, password) {
 }
 
 function logoutUser() {
-    currentUser = null;
+    window.currentUser = null;
     localStorage.removeItem('currentUser');
     updateUserInterface();
     console.log('🚪 Usuário deslogado');
@@ -1263,7 +1370,7 @@ function updateUserInterface() {
     const loginBtn = document.getElementById('loginBtn');
     const userInfo = document.getElementById('userInfo');
     
-    if (currentUser) {
+    if (window.currentUser) {
         if (loginBtn) loginBtn.style.display = 'none';
         if (userInfo) {
             userInfo.style.display = 'block';
@@ -1271,8 +1378,8 @@ function updateUserInterface() {
                 <div class="user-profile">
                     <div class="user-avatar">👤</div>
                     <div class="user-details">
-                        <span class="user-name">${currentUser.name}</span>
-                        <span class="user-ltv">LTV: R$ ${currentUser.ltv.toFixed(2)}</span>
+                        <span class="user-name">${window.currentUser.name}</span>
+                        <span class="user-ltv">LTV: R$ ${window.currentUser.ltv.toFixed(2)}</span>
                     </div>
                     <button onclick="logoutUser()" class="logout-btn">Sair</button>
                 </div>
@@ -1484,7 +1591,7 @@ function handleRegisterRequired() {
     }
     
     const user = registerUser({ name, email, phone, password });
-    currentUser = user;
+    window.currentUser = user;
     saveCurrentUser();
     updateUserInterface();
     closeLoginRequiredModal();
@@ -1499,7 +1606,7 @@ function handleRegisterRequired() {
 }
 
 function finalizePendingPurchase() {
-    if (pendingPurchase && currentUser) {
+    if (pendingPurchase && window.currentUser) {
         const product = pendingPurchase.product;
         
         // Mostrar notificação de compra pendente
@@ -1693,7 +1800,7 @@ function handleRegister() {
     }
     
     const user = registerUser({ name, email, phone, password });
-    currentUser = user;
+    window.currentUser = user;
     saveCurrentUser();
     updateUserInterface();
     closeLoginModal();
@@ -1844,7 +1951,7 @@ function createDownloadModal() {
 
 function addDownloadButtonToProduct(productId) {
     // Verificar se o usuário realmente comprou este produto
-    if (!currentUser || !hasUserPurchasedProduct(currentUser.id, productId)) {
+    if (!window.currentUser || !hasUserPurchasedProduct(window.currentUser.id, productId)) {
         return;
     }
     
@@ -1865,7 +1972,7 @@ function addDownloadButtonToProduct(productId) {
         if (product) {
             // Recuperar o modelo selecionado da compra do usuário
             const purchase = userDatabase.purchases.find(p => 
-                p.userId === currentUser.id && 
+                p.userId === window.currentUser.id && 
                 p.productId === productId && 
                 p.status === 'confirmed'
             );
@@ -1889,11 +1996,11 @@ function addDownloadButtonToProduct(productId) {
 }
 
 function updateProductCardsForUser() {
-    if (!currentUser) return;
+    if (!window.currentUser) return;
     
     // Atualizar todos os produtos comprados
     userDatabase.purchases.forEach(purchase => {
-        if (purchase.userId === currentUser.id && purchase.status === 'confirmed') {
+        if (purchase.userId === window.currentUser.id && purchase.status === 'confirmed') {
             addDownloadButtonToProduct(purchase.productId);
         }
     });
@@ -2174,7 +2281,7 @@ async function showModelSelectionModal(product) {
     let modelosParaRenderizar = product.models;
     
     // Se temos CARROSSEL_MODELOS_CONFIG, usar os modelos únicos de lá
-    if (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG.modelos) {
+    if (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG && CARROSSEL_MODELOS_CONFIG.modelos) {
         // Remover duplicatas se a função estiver disponível
         if (typeof removerModelosDuplicados === 'function') {
             modelosParaRenderizar = removerModelosDuplicados(CARROSSEL_MODELOS_CONFIG.modelos);
@@ -2336,7 +2443,7 @@ function selectModel(modelId) {
     
     // Buscar modelo tanto em product.models quanto em CARROSSEL_MODELOS_CONFIG.modelos
     let modelsList = product.models;
-    if (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG.modelos) {
+    if (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG && CARROSSEL_MODELOS_CONFIG.modelos) {
         modelsList = CARROSSEL_MODELOS_CONFIG.modelos;
     }
     
@@ -2538,7 +2645,7 @@ function selectModelAndBuy(modelId) {
     
     // Buscar modelo
     let modelsList = product.models;
-    if (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG.modelos) {
+    if (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG && CARROSSEL_MODELOS_CONFIG.modelos) {
         modelsList = CARROSSEL_MODELOS_CONFIG.modelos;
     }
     
@@ -2555,7 +2662,7 @@ function selectModelAndBuy(modelId) {
     selectedModel = model;
     
     // Verificar se usuário está logado
-    if (!currentUser) {
+    if (!window.currentUser) {
         // Salvar produto pendente para compra após login
         pendingPurchase = {
             productId: currentProductForModels.id,
@@ -2621,7 +2728,7 @@ function confirmModelSelection() {
         closeModelSelectionModal(true);
         
         // Verificar se usuário está logado
-        if (!currentUser) {
+        if (!window.currentUser) {
             // Salvar produto pendente para compra após login
             pendingPurchase = {
                 productId: currentProductForModels.id,
@@ -2720,7 +2827,7 @@ function previousModel() {
 
 function updateCarouselPosition() {
     const carousel = document.getElementById('modelsCarousel');
-    const config = CARROSSEL_MODELOS_CONFIG ? CARROSSEL_MODELOS_CONFIG.carrossel : { larguraSlide: 320 };
+    const config = (typeof CARROSSEL_MODELOS_CONFIG !== 'undefined' && CARROSSEL_MODELOS_CONFIG) ? CARROSSEL_MODELOS_CONFIG.carrossel : { larguraSlide: 320 };
     const slideWidth = config.larguraSlide;
     carousel.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
 }
@@ -2876,6 +2983,16 @@ function initializeSocialProofNotifications() {
     }, 25000);
 }
 
+// ========================================
+// WHATSAPP
+// ========================================
+function contactWhatsApp() {
+    const message = "Olá! Gostaria de fazer uma encomenda personalizada.";
+    const phone = "5571992926937";
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+}
+
 // Exportar funções para uso global
 window.addToCart = addToCart;
 window.searchProducts = searchProducts;
@@ -2902,6 +3019,7 @@ window.simulatePaymentConfirmation = simulatePaymentConfirmation;
 window.updateProductCardsForUser = updateProductCardsForUser;
 window.hasUserPurchasedProduct = hasUserPurchasedProduct;
 window.addDownloadButtonToProduct = addDownloadButtonToProduct;
+window.contactWhatsApp = contactWhatsApp;
 window.products = products; // TORNA O ARRAY DE PRODUTOS GLOBALMENTE ACESSÍVEL
 // Exportar funções de formatação de telefone
 window.formatPhoneNumber = formatPhoneNumber;
