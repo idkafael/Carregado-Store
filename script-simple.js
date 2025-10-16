@@ -3,8 +3,8 @@
 // ========================================
 
 // Variáveis globais
-let products = [];
 let cart = [];
+let products = [];
 
 // ========================================
 // INICIALIZAÇÃO
@@ -34,7 +34,7 @@ async function loadProducts() {
             name: "Produto Exemplo 1",
             description: "Descrição do produto exemplo 1",
             price: 29.90,
-            image_url: "https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Produto+1",
+            image_url: "https://picsum.photos/300/200?random=1",
             active: true
         },
         {
@@ -42,7 +42,7 @@ async function loadProducts() {
             name: "Produto Exemplo 2", 
             description: "Descrição do produto exemplo 2",
             price: 49.90,
-            image_url: "https://via.placeholder.com/300x200/2196F3/FFFFFF?text=Produto+2",
+            image_url: "https://picsum.photos/300/200?random=2",
             active: true
         },
         {
@@ -50,7 +50,7 @@ async function loadProducts() {
             name: "Produto Exemplo 3",
             description: "Descrição do produto exemplo 3", 
             price: 79.90,
-            image_url: "https://via.placeholder.com/300x200/FF9800/FFFFFF?text=Produto+3",
+            image_url: "https://picsum.photos/300/200?random=3",
             active: true
         }
     ];
