@@ -3,8 +3,8 @@
 // ========================================
 
 // Variáveis globais
-let cart = [];
 let products = [];
+let cart = [];
 
 // ========================================
 // INICIALIZAÇÃO
@@ -34,7 +34,7 @@ async function loadProducts() {
             name: "Produto Exemplo 1",
             description: "Descrição do produto exemplo 1",
             price: 29.90,
-            image_url: "imagens/produto-padrao.jpg",
+            image_url: "https://via.placeholder.com/300x200/4CAF50/FFFFFF?text=Produto+1",
             active: true
         },
         {
@@ -42,7 +42,7 @@ async function loadProducts() {
             name: "Produto Exemplo 2", 
             description: "Descrição do produto exemplo 2",
             price: 49.90,
-            image_url: "imagens/produto-padrao.jpg",
+            image_url: "https://via.placeholder.com/300x200/2196F3/FFFFFF?text=Produto+2",
             active: true
         },
         {
@@ -50,7 +50,7 @@ async function loadProducts() {
             name: "Produto Exemplo 3",
             description: "Descrição do produto exemplo 3", 
             price: 79.90,
-            image_url: "imagens/produto-padrao.jpg",
+            image_url: "https://via.placeholder.com/300x200/FF9800/FFFFFF?text=Produto+3",
             active: true
         }
     ];
@@ -74,17 +74,65 @@ function renderProducts() {
     }
     
     productsContainer.innerHTML = products.map(product => `
-        <div class="product-card" data-product-id="${product.id}">
-            <div class="product-image">
-                <img src="${product.image_url || 'imagens/produto-padrao.jpg'}" alt="${product.name}">
+        <div class="product-card" data-product-id="${product.id}" style="
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+        ">
+            <div class="product-image" style="
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+                background: #f5f5f5;
+            ">
+                <img src="${product.image_url}" alt="${product.name}" style="
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                ">
             </div>
-            <div class="product-info">
-                <h3 class="product-name">${product.name}</h3>
-                <p class="product-description">${product.description}</p>
-                <div class="product-price">
-                    <span class="price">R$ ${product.price.toFixed(2)}</span>
+            <div class="product-info" style="
+                padding: 20px;
+            ">
+                <h3 class="product-name" style="
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin: 0 0 10px 0;
+                    color: #333;
+                ">${product.name}</h3>
+                <p class="product-description" style="
+                    color: #666;
+                    font-size: 14px;
+                    margin: 0 0 15px 0;
+                    line-height: 1.4;
+                ">${product.description}</p>
+                <div class="product-price" style="
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 15px;
+                ">
+                    <span class="price" style="
+                        font-size: 20px;
+                        font-weight: 700;
+                        color: #2E7D32;
+                    ">R$ ${product.price.toFixed(2)}</span>
                 </div>
-                <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                <button class="add-to-cart-btn" onclick="addToCart(${product.id})" style="
+                    width: 100%;
+                    background: #4CAF50;
+                    color: white;
+                    border: none;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background 0.3s ease;
+                " onmouseover="this.style.background='#45a049'" onmouseout="this.style.background='#4CAF50'">
                     <i class="fas fa-cart-plus"></i>
                     Adicionar ao Carrinho
                 </button>
