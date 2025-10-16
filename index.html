@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="payment-system/payment-styles.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Supabase SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- API Segura -->
+    <script src="frontend-secure/api-client.js"></script>
+    <script src="frontend-secure/auth-secure.js"></script>
+    <script src="frontend-secure/payment-secure.js"></script>
+    <script src="frontend-secure/config-secure.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -285,14 +288,8 @@
         </div>
     </div>
 
-    <!-- Configurações e módulos -->
-    <script src="supabase-config.js"></script>
-    <script src="carrossel/carrossel-config.js"></script>
-    <script src="payment-system/payment-config.js"></script>
-    <script src="payment-system/pushinpay-real.js"></script>
-    <script src="delivery-system.js"></script>
-    <script src="script.js"></script>
-    <script src="auth-supabase.js"></script>
+    <!-- Script principal seguro -->
+    <script src="script-secure.js"></script>
 </body>
 </html>
 
