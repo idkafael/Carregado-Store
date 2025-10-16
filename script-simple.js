@@ -27,30 +27,39 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadProducts() {
     console.log('🔍 Carregando produtos...');
     
-    // Produtos estáticos (sem API por enquanto)
+    // SEUS PRODUTOS REAIS
     products = [
         {
             id: 1,
-            name: "Produto Exemplo 1",
-            description: "Descrição do produto exemplo 1",
-            price: 29.90,
-            image_url: "https://picsum.photos/300/200?random=1",
+            name: "Tela Privacy Nova",
+            description: "✅ Tela Atualizada 2025 Quase Idêntica\n✅ Sistema de Entregável após confirmação de compra + Coleta de dados pra LTV\n✅ Dashboard própria com track de onde veio o Lead (Orgânico ou Tráfego Pago)\n✅ Sistema de pagamento PIX integrado SEM SAIR DA LANDING PAGE com QR Code automático e verificação em tempo real\n✅ Galeria interativa com blur effects, hover autoplay nos vídeos e marca d'água personalizada\n✅ Facebook Pixel configurado + lead tracking + UTM parameters para máxima conversão\n✅ ENTREGA IMEDIATA: código fonte completo + assets + documentação\n✅ Fácil Personalização: só trocar fotos/vídeos/pixel está pronto para vender",
+            price: 90.00,
+            originalPrice: 150.00,
+            image_url: "imagens/new privacy.mp4",
+            videoUrl: "imagens/new privacy.mp4",
+            autoDelivery: true,
             active: true
         },
         {
             id: 2,
-            name: "Produto Exemplo 2", 
-            description: "Descrição do produto exemplo 2",
-            price: 49.90,
-            image_url: "https://picsum.photos/300/200?random=2",
+            name: "Tela Privacy Original",
+            description: "✅ Tela Privacy Original\n✅ Sistema de Entregável após confirmação de compra\n✅ Dashboard própria com track de leads\n✅ Sistema de pagamento PIX integrado\n✅ Galeria interativa com blur effects\n✅ Facebook Pixel configurado\n✅ ENTREGA IMEDIATA: código fonte completo",
+            price: 70.00,
+            originalPrice: 120.00,
+            image_url: "imagens/original privacy.mp4",
+            videoUrl: "imagens/original privacy.mp4",
+            autoDelivery: true,
             active: true
         },
         {
             id: 3,
-            name: "Produto Exemplo 3",
-            description: "Descrição do produto exemplo 3", 
-            price: 79.90,
-            image_url: "https://picsum.photos/300/200?random=3",
+            name: "Tela Privacy Premium",
+            description: "✅ Tela Privacy Premium\n✅ Sistema de Entregável após confirmação de compra\n✅ Dashboard própria com track de leads\n✅ Sistema de pagamento PIX integrado\n✅ Galeria interativa com blur effects\n✅ Facebook Pixel configurado\n✅ ENTREGA IMEDIATA: código fonte completo",
+            price: 120.00,
+            originalPrice: 200.00,
+            image_url: "imagens/premium privacy.mp4",
+            videoUrl: "imagens/premium privacy.mp4",
+            autoDelivery: true,
             active: true
         }
     ];
@@ -81,18 +90,43 @@ function renderProducts() {
             overflow: hidden;
             transition: transform 0.3s ease;
             margin-bottom: 20px;
+            position: relative;
         ">
             <div class="product-image" style="
                 width: 100%;
                 height: 200px;
                 overflow: hidden;
                 background: #f5f5f5;
+                position: relative;
             ">
-                <img src="${product.image_url}" alt="${product.name}" style="
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                ">
+                ${product.videoUrl ? `
+                    <video style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    " autoplay muted loop>
+                        <source src="${product.videoUrl}" type="video/mp4">
+                    </video>
+                ` : `
+                    <img src="${product.image_url}" alt="${product.name}" style="
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    ">
+                `}
+                ${product.autoDelivery ? `
+                    <div style="
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        background: #4CAF50;
+                        color: white;
+                        padding: 4px 8px;
+                        border-radius: 4px;
+                        font-size: 12px;
+                        font-weight: 600;
+                    ">ENTREGA IMEDIATA</div>
+                ` : ''}
             </div>
             <div class="product-info" style="
                 padding: 20px;
@@ -108,6 +142,7 @@ function renderProducts() {
                     font-size: 14px;
                     margin: 0 0 15px 0;
                     line-height: 1.4;
+                    white-space: pre-line;
                 ">${product.description}</p>
                 <div class="product-price" style="
                     display: flex;
@@ -115,11 +150,20 @@ function renderProducts() {
                     align-items: center;
                     margin-bottom: 15px;
                 ">
-                    <span class="price" style="
-                        font-size: 20px;
-                        font-weight: 700;
-                        color: #2E7D32;
-                    ">R$ ${product.price.toFixed(2)}</span>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="price" style="
+                            font-size: 20px;
+                            font-weight: 700;
+                            color: #2E7D32;
+                        ">R$ ${product.price.toFixed(2)}</span>
+                        ${product.originalPrice ? `
+                            <span class="original-price" style="
+                                font-size: 16px;
+                                color: #999;
+                                text-decoration: line-through;
+                            ">R$ ${product.originalPrice.toFixed(2)}</span>
+                        ` : ''}
+                    </div>
                 </div>
                 <button class="add-to-cart-btn" onclick="addToCart(${product.id})" style="
                     width: 100%;
