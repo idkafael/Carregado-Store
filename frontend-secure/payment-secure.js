@@ -502,4 +502,7 @@ const SecurePaymentSystem = {
 // Exportar para global
 if (typeof window !== 'undefined') {
   window.SecurePaymentSystem = SecurePaymentSystem;
+  
+  // Alias para compatibilidade com script.js
+  window.PushinPayReal = SecurePaymentSystem;
 }
