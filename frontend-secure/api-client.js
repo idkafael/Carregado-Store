@@ -3,7 +3,7 @@
 
 class SecureAPIClient {
   constructor() {
-    this.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:3000/api';
+    this.baseURL = 'https://carregado.store/api';
     this.token = localStorage.getItem('auth_token');
   }
 
