@@ -3,8 +3,8 @@
 // ========================================
 
 // Variáveis globais
-let cart = [];
 let products = [];
+let cart = [];
 
 // ========================================
 // INICIALIZAÇÃO
@@ -35,8 +35,8 @@ async function loadProducts() {
             description: "✅ Tela Atualizada 2025 Quase Idêntica\n✅ Sistema de Entregável após confirmação de compra + Coleta de dados pra LTV\n✅ Dashboard própria com track de onde veio o Lead (Orgânico ou Tráfego Pago)\n✅ Sistema de pagamento PIX integrado SEM SAIR DA LANDING PAGE com QR Code automático e verificação em tempo real\n✅ Galeria interativa com blur effects, hover autoplay nos vídeos e marca d'água personalizada\n✅ Facebook Pixel configurado + lead tracking + UTM parameters para máxima conversão\n✅ ENTREGA IMEDIATA: código fonte completo + assets + documentação\n✅ Fácil Personalização: só trocar fotos/vídeos/pixel está pronto para vender",
             price: 90.00,
             originalPrice: 150.00,
-            image_url: "imagens/new privacy.mp4",
-            videoUrl: "imagens/new privacy.mp4",
+            image_url: "https://picsum.photos/300/200?random=1",
+            videoUrl: null,
             autoDelivery: true,
             active: true
         },
@@ -46,8 +46,8 @@ async function loadProducts() {
             description: "✅ Tela Privacy Original\n✅ Sistema de Entregável após confirmação de compra\n✅ Dashboard própria com track de leads\n✅ Sistema de pagamento PIX integrado\n✅ Galeria interativa com blur effects\n✅ Facebook Pixel configurado\n✅ ENTREGA IMEDIATA: código fonte completo",
             price: 70.00,
             originalPrice: 120.00,
-            image_url: "imagens/original privacy.mp4",
-            videoUrl: "imagens/original privacy.mp4",
+            image_url: "https://picsum.photos/300/200?random=2",
+            videoUrl: null,
             autoDelivery: true,
             active: true
         },
@@ -57,8 +57,8 @@ async function loadProducts() {
             description: "✅ Tela Privacy Premium\n✅ Sistema de Entregável após confirmação de compra\n✅ Dashboard própria com track de leads\n✅ Sistema de pagamento PIX integrado\n✅ Galeria interativa com blur effects\n✅ Facebook Pixel configurado\n✅ ENTREGA IMEDIATA: código fonte completo",
             price: 120.00,
             originalPrice: 200.00,
-            image_url: "imagens/premium privacy.mp4",
-            videoUrl: "imagens/premium privacy.mp4",
+            image_url: "https://picsum.photos/300/200?random=3",
+            videoUrl: null,
             autoDelivery: true,
             active: true
         }
