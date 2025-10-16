@@ -44,3 +44,4 @@ cd api && npm start
 - **Site:** https://carregado.store
 - **API:** https://carregado.store/api/*
 - **SSL:** Automático
+- **Deploy:** Automático a cada push
