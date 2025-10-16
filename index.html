@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregado Store - Loja Online</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="payment-system/payment-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="imagens/carregado-store-icon.jpg" alt="Carregado Store Logo" class="logo-image">
+                    </div>
+                    <span class="logo-text">Carregado Store</span>
+                </div>
+                <div class="center-text">Aproveite!</div>
+        <div class="header-actions">
+            <button id="loginBtn" onclick="showLoginModal()" class="login-btn">
+                <i class="fas fa-user"></i>
+                Login
+            </button>
+            <div id="userInfo" class="user-info" style="display: none;">
+                <!-- Conteúdo será preenchido via JavaScript -->
+            </div>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="hero-subtitle">Bem-vindo a</span>
+                <span class="hero-main">Carregado Store</span>
+            </h1>
+            <button class="hero-btn">
+                <i class="fas fa-box"></i>
+                Navegar produtos!
+            </button>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-shopping-cart"></i>
+                    <div class="stat-number">388</div>
+                    <div class="stat-label">Produtos vendidos</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-star"></i>
+                    <div class="stat-number">4.99</div>
+                    <div class="stat-label">Avaliação média</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products">
+        <div class="container">
+            <h2 class="products-title">Nossos Produtos</h2>
+            <div class="category-selector">
+                <select id="categorySelect">
+                    <option value="all" selected>Todas</option>
+                    <option value="hot">Hot</option>
+                    <option value="ferramentas">Ferramentas</option>
+                </select>
+            </div>
+            <div class="products-grid" id="productsGrid">
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="how-title">Como funciona?</h2>
+            <p class="how-subtitle">Compras feitas simples em quatro passos fáceis!</p>
+            
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Escolha o Produto</h3>
+                        <p class="step-description">
+                            Explore os produtos disponíveis e selecione o que você deseja. 
+                            Cada item vem com descrição e detalhes sobre a entrega automática.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Pague com PIX</h3>
+                        <p class="step-description">
+                            Finalize sua compra com pagamento único via PIX. É rápido, seguro e sem mensalidades. 
+                            Assim que o pagamento for confirmado, o sistema libera o acesso automaticamente.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Receba na Hora</h3>
+                        <p class="step-description">
+                            Após o pagamento, a entrega é imediata você recebe seu produto digital direto no painel 
+                            ou por link automático, sem precisar esperar.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Suporte e Personalização</h3>
+                        <p class="step-description">
+                            Se quiser algo sob medida, é só entrar em contato. Oferecemos suporte e encomendas 
+                            personalizadas para atender exatamente o que você precisa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-social">
+                    <a href="https://instagram.com/carregado.ads" target="_blank" class="social-btn instagram-btn">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5571992926937?text=Olá! Gostaria de fazer uma encomenda personalizada. Podem me ajudar?" target="_blank" class="social-btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+                <p class="footer-text">&copy; 2024 Carregado Store. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Privacy Modal -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Política de Privacidade</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h3>1. Informações que Coletamos</h3>
+                <p>Coletamos informações que você nos fornece diretamente, como quando você cria uma conta, faz uma compra ou entra em contato conosco. Isso pode incluir seu nome, endereço de e-mail, endereço de cobrança e informações de pagamento.</p>
+                
+                <h3>2. Como Usamos suas Informações</h3>
+                <p>Usamos suas informações para processar pedidos, fornecer suporte ao cliente, melhorar nossos serviços e comunicar com você sobre produtos e ofertas que possam ser do seu interesse.</p>
+                
+                <h3>3. Compartilhamento de Informações</h3>
+                <p>Não vendemos, alugamos ou compartilhamos suas informações pessoais com terceiros, exceto conforme descrito nesta política ou com seu consentimento explícito.</p>
+                
+                <h3>4. Segurança</h3>
+                <p>Implementamos medidas de segurança apropriadas para proteger suas informações pessoais contra acesso não autorizado, alteração, divulgação ou destruição.</p>
+                
+                <h3>5. Cookies</h3>
+                <p>Usamos cookies e tecnologias similares para melhorar sua experiência em nosso site, analisar o tráfego e personalizar conteúdo.</p>
+                
+                <h3>6. Seus Direitos</h3>
+                <p>Você tem o direito de acessar, corrigir ou excluir suas informações pessoais. Você também pode optar por não receber comunicações de marketing de nossa parte.</p>
+                
+                <h3>7. Alterações nesta Política</h3>
+                <p>Podemos atualizar esta política de privacidade periodicamente. Notificaremos você sobre mudanças significativas publicando a nova política em nosso site.</p>
+                
+                <h3>8. Contato</h3>
+                <p>Se você tiver dúvidas sobre esta política de privacidade, entre em contato conosco através dos canais disponíveis em nosso site.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" onclick="closeModal()">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content payment-modal">
+            <div class="modal-header">
+                <h2>Finalizar Compra</h2>
+                <span class="close" onclick="closePaymentModal()">&times;</span>
+            </div>
+            <!-- Tabs Navigation -->
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="switchTab('description')" id="descriptionTab">
+                    <i class="fas fa-info-circle"></i>
+                    Descrição
+                </button>
+                <button class="tab-btn" onclick="switchTab('payment')" id="paymentTab">
+                    <i class="fas fa-credit-card"></i>
+                    Pagamento
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Description Tab -->
+                <div id="descriptionContent" class="tab-content active">
+                    <div class="product-info-detailed">
+                        <h3 id="productNameDesc">Produto</h3>
+                        <p class="payment-price" id="productPriceDesc">R$ 0,00</p>
+                        <div class="product-description-detailed" id="productDescriptionText">
+                            <!-- Descrição será preenchida via JavaScript -->
+                        </div>
+                        <div class="product-features">
+                            <h4>O que você recebe:</h4>
+                            <ul id="productFeaturesList">
+                                <!-- Features serão preenchidas via JavaScript -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Tab -->
+                <div id="paymentContent" class="tab-content">
+                    <div class="payment-info">
+                        <h3 id="productName">Produto</h3>
+                        <p class="payment-price" id="productPrice">R$ 0,00</p>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h4>Escolha a forma de pagamento:</h4>
+                        <button class="payment-method-btn active" onclick="selectPaymentMethod('pix')">
+                            <i class="fas fa-qrcode"></i>
+                            PIX
+                        </button>
+                    </div>
+                    
+                    <div id="pixSection" class="payment-section">
+                        <div class="qr-container">
+                            <div id="qrCode"></div>
+                            <p class="qr-instruction">Escaneie o QR Code com seu app de pagamento</p>
+                        </div>
+                        
+                        <div class="pix-code-container">
+                            <label for="pixCodeInput">📋 Ou copie o código PIX:</label>
+                            <div class="pix-input-group">
+                                <input type="text" id="pixCodeInput" readonly placeholder="Código PIX será exibido aqui...">
+                                <button onclick="copyPixCode()" class="copy-btn">
+                                    <i class="fas fa-copy"></i>
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="paymentStatus" class="payment-status-container">
+                        <div class="payment-status">
+                            <div class="payment-spinner"></div>
+                            <span>Aguardando pagamento...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closePaymentModal()">Cancelar</button>
+                <button class="modal-btn primary" onclick="createPayment()" id="createPaymentBtn">
+                    <i class="fas fa-credit-card"></i>
+                    Gerar PIX
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configurações e módulos -->
+    <script src="supabase-config.js"></script>
+    <script src="carrossel/carrossel-config.js"></script>
+    <script src="payment-system/payment-config.js"></script>
+    <script src="payment-system/pushinpay-real.js"></script>
+    <script src="delivery-system.js"></script>
+    <script src="script.js"></script>
+    <script src="auth-supabase.js"></script>
+</body>
+</html>
+
