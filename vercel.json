@@ -1,5 +1,7 @@
 {
   "version": 2,
+  "name": "carregado-store",
+  "alias": ["carregado.store", "www.carregado.store"],
   "builds": [
     {
       "src": "**/*.html",
@@ -35,6 +37,13 @@
           "value": "1; mode=block"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://carregado.store/$1",
+      "permanent": true
     }
   ]
 }

@@ -2,24 +2,32 @@
 
 Sistema de e-commerce com pagamentos PIX integrados.
 
-## 🚀 Deploy Manual
+## 🌐 Deploy Automático
 
-### Frontend (Vercel)
-1. Acesse: https://vercel.com
-2. Importe o repositório: `idkafael/Carregado-Store`
-3. Deploy automático
+**Domínio Principal:** `https://carregado.store`
 
-### Backend (Vercel Functions)
-1. Crie pasta `api/` na raiz
-2. Mova arquivos do `backend/` para `api/`
-3. Redeploy no Vercel
+### ✅ Configuração Atual:
+- **Frontend:** Deployado automaticamente no Vercel
+- **Backend:** Vercel Functions integrado
+- **Domínio:** carregado.store (configurado como padrão)
+- **SSL:** Automático e renovado automaticamente
+
+### 🚀 Como Fazer Deploy:
+1. **Faça mudanças** no código
+2. **Commit e push** para o GitHub:
+   ```bash
+   git add .
+   git commit -m "Sua mudança"
+   git push
+   ```
+3. **Deploy automático** no carregado.store
 
 ## 📁 Estrutura
 ```
 ├── index.html          # Página principal
 ├── styles.css          # Estilos
 ├── script.js           # JavaScript principal
-├── backend/            # API Node.js
+├── api/                # Backend (Vercel Functions)
 └── frontend-secure/    # Código seguro
 ```
 
@@ -29,5 +37,10 @@ Sistema de e-commerce com pagamentos PIX integrados.
 npm run dev
 
 # Backend
-cd backend && npm start
+cd api && npm start
 ```
+
+## 🌐 URLs de Produção
+- **Site:** https://carregado.store
+- **API:** https://carregado.store/api/*
+- **SSL:** Automático
