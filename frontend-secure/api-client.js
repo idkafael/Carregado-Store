@@ -103,7 +103,7 @@ class SecureAPIClient {
   // ========================================
   
   async getProducts() {
-    return await this.request('/products');
+    return await this.request('/api/products');
   }
 
   async getProduct(productId) {

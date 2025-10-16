@@ -3,7 +3,7 @@
 
 const SecureConfig = {
   // URL da API Backend
-  apiUrl: process.env.REACT_APP_API_URL || 'https://carregado.store/api',
+  apiUrl: process.env.REACT_APP_API_URL || 'https://carregado.store',
   
   // Configurações de timeout
   timeouts: {
