@@ -189,16 +189,4 @@ if (typeof window !== 'undefined') {
   window.throttleSecure = throttleSecure;
 }
 
-module.exports = {
-  SecureConfig,
-  logSecure,
-  validateSecureConfig,
-  showSecureNotification,
-  formatPhoneNumberSecure,
-  unformatPhoneNumberSecure,
-  validateEmailSecure,
-  validatePasswordSecure,
-  copyToClipboardSecure,
-  debounceSecure,
-  throttleSecure
-};
+// Exportar para global (já feito acima)
