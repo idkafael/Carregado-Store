@@ -3,7 +3,7 @@
 
 class SecureAPIClient {
   constructor() {
-    this.baseURL = 'https://carregado.store/api';
+    this.baseURL = 'https://www.carregado.store/api';
     this.token = localStorage.getItem('auth_token');
   }
 
@@ -201,4 +201,4 @@ if (typeof window !== 'undefined') {
   window.SecureAPIClient = SecureAPIClient;
 }
 
-module.exports = { SecureAPIClient, apiClient };
+// Exportar para global (já feito acima)

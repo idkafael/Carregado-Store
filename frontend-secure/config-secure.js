@@ -3,7 +3,7 @@
 
 const SecureConfig = {
   // URL da API Backend
-  apiUrl: 'https://carregado.store',
+  apiUrl: 'https://www.carregado.store',
   
   // Configurações de timeout
   timeouts: {
@@ -34,7 +34,7 @@ const SecureConfig = {
   
   // Configurações de debug
   debug: {
-    enabled: process.env.NODE_ENV === 'development',
+    enabled: false,
     logLevel: 'info' // 'error', 'warn', 'info', 'debug'
   },
   
