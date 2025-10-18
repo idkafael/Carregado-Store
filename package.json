@@ -6,7 +6,10 @@
   "scripts": {
     "start": "npx serve -s . -l 3000",
     "dev": "npx live-server --port=3000 --open=/",
-    "build": "echo 'Frontend build completed'"
+    "build": "echo 'Frontend build completed'",
+    "vercel-build": "echo 'Build completed for Vercel'",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
   },
   "dependencies": {
     "serve": "^14.2.1",

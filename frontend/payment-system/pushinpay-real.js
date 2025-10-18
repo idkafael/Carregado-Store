@@ -5,19 +5,11 @@
 class PushinPayReal {
     constructor() {
         this.estado = {
-            transacaoId: null,
-            status: 'pending',
-            intervaloVerificacao: null,
+    transacaoId: null,
+    status: 'pending',
+    intervaloVerificacao: null,
             valorAtual: 0,
             planoAtual: ''
-        };
-        
-        // Usar configuração se disponível
-        this.config = window.PushinPayConfig || {
-            getCreatePixUrl: () => '/api/payment/create-pix',
-            getCheckStatusUrl: (id) => `/api/payment/check-status/${id}`,
-            getCheckInterval: () => 3000,
-            getDefaultHeaders: () => ({ 'Content-Type': 'application/json' })
         };
     }
 
@@ -40,30 +32,31 @@ class PushinPayReal {
     // Criar PIX
     async criarPix() {
         try {
-            const response = await fetch(this.config.getCreatePixUrl(), {
-                method: 'POST',
-                headers: this.config.getDefaultHeaders(),
-                body: JSON.stringify({
-                    amount: this.estado.valorAtual / 100, // Converter centavos para reais
+            const response = await fetch('/api/payment/create-pix', {
+        method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+        body: JSON.stringify({
+                    amount: this.estado.valorAtual,
                     description: this.estado.planoAtual
-                })
-            });
-            
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(`Erro na API: ${response.status} - ${errorData.error || errorData.details || 'Erro desconhecido'}`);
-            }
-            
-            const data = await response.json();
+        })
+      });
+      
+      if (!response.ok) {
+                throw new Error(`Erro na API: ${response.status}`);
+      }
+      
+      const data = await response.json();
             this.estado.transacaoId = data.transaction_id || data.id;
             this.estado.status = 'pending';
             
             console.log('PushinPay: PIX criado com sucesso', data);
-            return data;
-        } catch (error) {
+      return data;
+    } catch (error) {
             console.error('PushinPay: Erro ao criar PIX:', error);
-            throw error;
-        }
+      throw error;
+    }
     }
 
     // Exibir QR Code
@@ -91,39 +84,29 @@ class PushinPayReal {
       clearInterval(this.estado.intervaloVerificacao);
     }
     
-    this.estado.intervaloVerificacao = setInterval(async () => {
-        try {
-            const response = await fetch(this.config.getCheckStatusUrl(this.estado.transacaoId));
-            
-            if (!response.ok) {
-                console.error('Erro na verificação de status:', response.status);
-                return;
-            }
-            
-            const data = await response.json();
-            
-            if (data.status === 'paid' || data.paid === true) {
-                this.estado.status = 'paid';
-                this.pararVerificacao();
+        this.estado.intervaloVerificacao = setInterval(async () => {
+            try {
+                const response = await fetch(`/api/payment/check-status/${this.estado.transacaoId}`);
+                const data = await response.json();
                 
-                // Notificar pagamento aprovado
-                if (typeof window.onPaymentSuccess === 'function') {
-                    window.onPaymentSuccess(data);
+                if (data.status === 'paid' || data.paid === true) {
+                    this.estado.status = 'paid';
+                    this.pararVerificacao();
+                    
+                    // Notificar pagamento aprovado
+                    if (typeof window.onPaymentSuccess === 'function') {
+                        window.onPaymentSuccess(data);
+                    }
+                    
+                    console.log('PushinPay: Pagamento aprovado!');
                 }
-                
-                console.log('PushinPay: Pagamento aprovado!');
-            } else if (data.status === 'expired') {
-                this.estado.status = 'expired';
-                this.pararVerificacao();
-                console.log('PushinPay: PIX expirado');
+            } catch (error) {
+                console.error('PushinPay: Erro na verificação:', error);
             }
-        } catch (error) {
-            console.error('PushinPay: Erro na verificação:', error);
-        }
-    }, this.config.getCheckInterval());
+        }, 3000); // Verificar a cada 3 segundos
 
-    console.log('PushinPay: Verificação iniciada');
-  }
+        console.log('PushinPay: Verificação iniciada');
+    }
 
     // Verificar status do pagamento
     async verificarStatus() {
@@ -132,13 +115,9 @@ class PushinPayReal {
         }
 
         try {
-            const response = await fetch(this.config.getCheckStatusUrl(this.estado.transacaoId));
-            
-            if (!response.ok) {
-                throw new Error(`Erro na API: ${response.status}`);
-            }
-            
+            const response = await fetch(`/api/payment/check-status/${this.estado.transacaoId}`);
             const data = await response.json();
+            
             this.estado.status = data.status || 'pending';
             return data;
         } catch (error) {
@@ -168,4 +147,6 @@ window.PushinPayReal = new PushinPayReal();
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PushinPayReal;
 }
+
+
 

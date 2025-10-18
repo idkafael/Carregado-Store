@@ -1,10 +1,10 @@
-# 🛒 Carregado Store
+# 🌸 Bloom
 
-Sistema de e-commerce com pagamentos PIX integrados.
+Sistema de e-commerce com pagamentos PIX integrados e entrega automática.
 
 ## 🌐 Deploy Automático
 
-**Domínio Principal:** `https://carregado.store`
+**Domínio Principal:** `https://carregado.store` (Bloom)
 
 ### ✅ Configuração Atual:
 - **Frontend:** Deployado automaticamente no Vercel
@@ -22,22 +22,36 @@ Sistema de e-commerce com pagamentos PIX integrados.
    ```
 3. **Deploy automático** no carregado.store
 
-## 📁 Estrutura
+## 📁 Estrutura do Projeto
+
 ```
-├── index.html          # Página principal
-├── styles.css          # Estilos
-├── script.js           # JavaScript principal
-├── api/                # Backend (Vercel Functions)
-└── frontend-secure/    # Código seguro
+bloom/
+├── frontend/              # 🎨 Código do frontend
+│   ├── index.html         # Página principal
+│   ├── styles.css         # Estilos
+│   ├── script.js          # JavaScript principal
+│   ├── frontend-secure/   # Arquivos de segurança
+│   └── payment-system/    # Sistema de pagamento
+├── assets/                # 🖼️ Imagens e mídias
+│   ├── imagens/           # Imagens principais
+│   └── modelos/           # Fotos dos modelos
+├── scripts/               # 🚀 Scripts de deploy
+├── docs/                  # 📚 Documentação
+└── package.json           # 📦 Configuração principal
 ```
 
 ## 🔧 Desenvolvimento Local
-```bash
-# Frontend
-npm run dev
 
-# Backend
-cd api && npm start
+```bash
+# Instalar dependências
+npm install
+
+# Iniciar servidor de desenvolvimento
+cd frontend
+npm start
+
+# Ou usar serve diretamente
+npx serve -s . -l 3000
 ```
 
 ## 🌐 URLs de Produção
@@ -45,3 +59,22 @@ cd api && npm start
 - **API:** https://carregado.store/api/*
 - **SSL:** Automático
 - **Deploy:** Automático a cada push
+
+## 🛠️ Funcionalidades
+
+- ✅ **Sistema de Pagamento PIX** - Integrado com QR Code automático
+- ✅ **Entrega Automática** - Liberação imediata após pagamento
+- ✅ **Sistema de Login** - Autenticação segura
+- ✅ **Carrossel de Modelos** - Seleção interativa
+- ✅ **Responsivo** - Funciona em todos os dispositivos
+- ✅ **Deploy Automático** - Vercel + GitHub
+
+## 📱 Contato
+
+- **Instagram:** [@carregado.ads](https://instagram.com/carregado.ads)
+- **WhatsApp:** [(71) 99292-6937](https://wa.me/5571992926937)
+- **Site:** https://carregado.store
+
+---
+
+**© 2024 Bloom. Todos os direitos reservados.**

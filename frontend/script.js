@@ -224,91 +224,6 @@ const products = [
     },
     {
         id: 8,
-        title: "Modelos Prontas Validadas",
-        price: "R$ 50,00",
-        originalPrice: null,
-        category: "all",
-        newCategory: "modelo",
-        image: "emoji",
-        emoji: "👥",
-        autoDelivery: true,
-        description: "👥 Modelos Validadas e Prontas para Uso\n📸 Fotos profissionais de alta qualidade\n✅ Validadas e testadas em campanhas\n🎯 Múltiplas opções de modelos\n💼 Ideal para e-commerce e marketing digital",
-        downloadLinks: {
-            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            instructions: "📋 Modelos validadas prontas para uso"
-        }
-    },
-    {
-        id: 9,
-        title: "Pack de Áudios",
-        price: "R$ 30,00",
-        originalPrice: "R$ 97,00",
-        category: "all",
-        newCategory: "modelo",
-        image: "emoji",
-        emoji: "🎤",
-        autoDelivery: true,
-        description: "🎤 Pack de Áudios Profissionais\n🎵 Áudios de alta qualidade para campanhas\n✅ Prontos para uso imediato\n🎯 Diversos estilos e durações\n💼 Ideal para marketing e publicidade",
-        downloadLinks: {
-            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            instructions: "📋 Pack de áudios profissionais"
-        }
-    },
-    {
-        id: 10,
-        title: "Contrato Modelo White",
-        price: "R$ 59,00",
-        originalPrice: "R$ 97,00",
-        category: "all",
-        newCategory: "modelo",
-        image: "emoji",
-        emoji: "📄",
-        autoDelivery: true,
-        description: "📄 Contrato Modelo White Label\n📋 Template profissional personalizável\n✅ Pronto para uso em negócios\n🎯 Adaptável para diferentes nichos\n💼 Ideal para freelancers e agências",
-        downloadLinks: {
-            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            instructions: "📋 Contrato modelo white label"
-        }
-    },
-    {
-        id: 11,
-        title: "Tabela de Preço",
-        price: "R$ 15,00",
-        originalPrice: "R$ 35,00",
-        category: "all",
-        newCategory: "modelo",
-        image: "emoji",
-        emoji: "💰",
-        autoDelivery: true,
-        description: "💰 Tabela de Preços Profissional\n📊 Sistema de precificação completo\n✅ Templates personalizáveis\n🎯 Adaptável para qualquer negócio\n💼 Ideal para consultores e freelancers",
-        downloadLinks: {
-            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            instructions: "📋 Tabela de preços profissional"
-        }
-    },
-    {
-        id: 12,
-        title: "Pacote Tufos em Videos",
-        price: "R$ 49,90",
-        originalPrice: "R$ 97,00",
-        category: "all",
-        newCategory: "modelo",
-        image: "emoji",
-        emoji: "🎬",
-        autoDelivery: true,
-        description: "🎬 Pacote Tufos em Vídeos\n📹 Vídeos profissionais para campanhas\n✅ Conteúdo de alta qualidade\n🎯 Diversos estilos e durações\n💼 Ideal para marketing digital e social media",
-        downloadLinks: {
-            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
-            instructions: "📋 Pacote tufos em vídeos"
-        }
-    },
-    {
-        id: 13,
         title: "Tela Fake Privacy",
         price: "R$ 147,90",
         originalPrice: "R$ 250,00",
@@ -542,28 +457,30 @@ function createProductCard(product) {
                 ` : `
                     <img src="${product.image}" alt="${product.title}">
                 `}
+                ${product.autoDelivery ? `
+                    <div class="product-badge">
+                        <i class="fas fa-truck"></i>
+                        ENTREGA AUTOMÁTICA
+                    </div>
+                ` : ''}
             </div>
             <div class="product-card-content">
-                <div class="product-card-main">
-                    <h4 class="product-card-title">${product.title}</h4>
-                    <div class="product-price-section">
-                        ${product.originalPrice ? `
-                            <span class="product-price-original">${product.originalPrice}</span>
-                            <span class="product-price-discount">↓ ${discount}%</span>
-                    ` : ''}
-                </div>
-                    ${product.price ? `
-                        <div class="product-price-current">
-                            ${product.price}
-                            <i class="fas fa-truck" style="font-size: 16px;"></i>
-                        </div>
-                        <div class="product-price-pix">
-                            <i class="fas fa-diamond" style="color: var(--secondary-orange);"></i>
-                            À vista no PIX
-                        </div>
-                    ` : ''}
-                </div>
+                <h4 class="product-card-title">${product.title}</h4>
+                <div class="product-price-section">
+                    ${product.originalPrice ? `
+                        <span class="product-price-original">${product.originalPrice}</span>
+                        <span class="product-price-discount">↓ ${discount}%</span>
+                ` : ''}
+            </div>
                 ${product.price ? `
+                    <div class="product-price-current">
+                        ${product.price}
+                        <i class="fas fa-truck" style="font-size: 16px;"></i>
+                    </div>
+                    <div class="product-price-pix">
+                        <i class="fas fa-diamond" style="color: var(--secondary-orange);"></i>
+                        À vista no PIX
+                    </div>
                     <button class="product-card-button">
                         Comprar Agora
                     </button>
@@ -646,8 +563,30 @@ function addToCart(productId) {
             return;
         }
         
-        // Redirecionar para página de detalhes do produto
-        window.location.href = `product-detail.html?id=${productId}`;
+        // Se for produto com seleção de modelos, abrir carrossel
+        if (product.hasModelSelection) {
+            showModelSelectionModal(product);
+            return;
+        }
+        
+        // Verificar se usuário está logado
+        if (!window.currentUser) {
+            // Salvar produto pendente para compra após login
+            pendingPurchase = {
+                productId: productId,
+                product: product,
+                timestamp: new Date()
+            };
+            
+            // Mostrar modal de login obrigatório
+            showLoginRequiredModal(product);
+            return;
+        }
+        
+        // Usuário logado - prosseguir com compra normal
+        cartCount++;
+        updateCartCount();
+        openPaymentModal(product);
     }
 }
 
@@ -820,8 +759,6 @@ function testVideo() {
 
 // Funções do Modal de Pagamento
 function openPaymentModal(product) {
-    console.log('🔍 Iniciando abertura do modal de pagamento...');
-    
     const modal = document.getElementById('paymentModal');
     const productName = document.getElementById('productName');
     const productPrice = document.getElementById('productPrice');
@@ -830,26 +767,7 @@ function openPaymentModal(product) {
     const productDescriptionText = document.getElementById('productDescriptionText');
     const productFeaturesList = document.getElementById('productFeaturesList');
     
-    console.log('🔍 Elementos encontrados:', {
-        modal: !!modal,
-        productName: !!productName,
-        productPrice: !!productPrice,
-        productNameDesc: !!productNameDesc,
-        productPriceDesc: !!productPriceDesc,
-        productDescriptionText: !!productDescriptionText
-    });
-    
-    if (!modal) {
-        console.error('❌ Modal de pagamento não encontrado!');
-        return;
-    }
-    
-    if (!productName || !productPrice) {
-        console.error('❌ Elementos essenciais do modal não encontrados!');
-        return;
-    }
-    
-    try {
+    if (modal && productName && productPrice) {
         // DEFINIR PRODUTO ATUAL GLOBALMENTE - CORREÇÃO CRÍTICA
         window.currentProduct = product;
         console.log('🎯 Produto atual definido:', product.title, product.id);
@@ -874,148 +792,27 @@ function openPaymentModal(product) {
         }
         
         // Atualizar valor no PushinPay
-        if (typeof window.PushinPayReal !== 'undefined') {
-            const valor = parseFloat(product.price.replace('R$ ', '').replace(',', '.'));
-            window.PushinPayReal.atualizarValorPlano(valor, product.title);
-            console.log('💰 Valor atualizado no PushinPay:', valor);
-        } else {
-            console.warn('⚠️ PushinPayReal não disponível');
-        }
+        const valor = parseFloat(product.price.replace('R$ ', '').replace(',', '.'));
+        PushinPayReal.atualizarValorPlano(valor, product.title);
         
         // Mostrar aba de descrição por padrão
         switchTab('description');
         
-        // Forçar exibição do modal com múltiplas abordagens
         modal.style.display = 'block';
-        modal.style.visibility = 'visible';
-        modal.style.opacity = '1';
-        modal.style.zIndex = '9999';
-        
-        // Garantir que o modal esteja no topo
-        modal.style.position = 'fixed';
-        modal.style.top = '0';
-        modal.style.left = '0';
-        modal.style.width = '100%';
-        modal.style.height = '100%';
-        
-        // Bloquear scroll do body
         document.body.style.overflow = 'hidden';
-        document.body.style.position = 'fixed';
-        document.body.style.width = '100%';
-        
-        console.log('✅ Modal de pagamento exibido com sucesso!');
-        console.log('🔍 Estado do modal:', {
-            display: modal.style.display,
-            visibility: modal.style.visibility,
-            opacity: modal.style.opacity,
-            zIndex: modal.style.zIndex
-        });
-        
-    } catch (error) {
-        console.error('❌ Erro ao abrir modal de pagamento:', error);
     }
 }
 
 function closePaymentModal() {
-    console.log('🔍 Fechando modal de pagamento...');
-    
     const modal = document.getElementById('paymentModal');
     if (modal) {
-        // Restaurar estilos do modal
         modal.style.display = 'none';
-        modal.style.visibility = 'hidden';
-        modal.style.opacity = '0';
-        
-        // Restaurar estilos do body
         document.body.style.overflow = 'auto';
-        document.body.style.position = 'static';
-        document.body.style.width = 'auto';
         
         // Parar verificação de pagamento
-        if (typeof window.PushinPayReal !== 'undefined') {
-            window.PushinPayReal.pararVerificacao();
-        }
-        
-        console.log('✅ Modal de pagamento fechado com sucesso!');
-    } else {
-        console.warn('⚠️ Modal de pagamento não encontrado para fechar');
+        PushinPayReal.pararVerificacao();
     }
 }
-
-// Função de debug para testar o modal
-function debugModal() {
-    console.log('🔧 DEBUG MODAL - Verificando elementos...');
-    
-    const modal = document.getElementById('paymentModal');
-    console.log('Modal encontrado:', !!modal);
-    
-    if (modal) {
-        console.log('Estado atual do modal:', {
-            display: modal.style.display,
-            visibility: modal.style.visibility,
-            opacity: modal.style.opacity,
-            zIndex: modal.style.zIndex,
-            position: modal.style.position,
-            top: modal.style.top,
-            left: modal.style.left,
-            width: modal.style.width,
-            height: modal.style.height
-        });
-        
-        // Testar abertura forçada
-        console.log('🧪 Testando abertura forçada...');
-        modal.style.display = 'block';
-        modal.style.visibility = 'visible';
-        modal.style.opacity = '1';
-        modal.style.zIndex = '9999';
-        
-        setTimeout(() => {
-            console.log('Estado após abertura forçada:', {
-                display: modal.style.display,
-                visibility: modal.style.visibility,
-                opacity: modal.style.opacity
-            });
-        }, 100);
-    }
-    
-    // Verificar elementos internos
-    const elements = [
-        'productName', 'productPrice', 'productNameDesc', 'productPriceDesc',
-        'productDescriptionText', 'productFeaturesList'
-    ];
-    
-    elements.forEach(id => {
-        const element = document.getElementById(id);
-        console.log(`${id}:`, !!element);
-    });
-}
-
-// Expor função de debug globalmente
-window.debugModal = debugModal;
-
-// Função de teste simples para forçar abertura do modal
-function testModal() {
-    console.log('🧪 TESTE SIMPLES - Forçando abertura do modal...');
-    const modal = document.getElementById('paymentModal');
-    if (modal) {
-        modal.style.display = 'block';
-        modal.style.visibility = 'visible';
-        modal.style.opacity = '1';
-        modal.style.zIndex = '99999';
-        modal.style.position = 'fixed';
-        modal.style.top = '0';
-        modal.style.left = '0';
-        modal.style.width = '100%';
-        modal.style.height = '100%';
-        document.body.style.overflow = 'hidden';
-        console.log('✅ Modal forçado a abrir!');
-    } else {
-        console.error('❌ Modal não encontrado!');
-    }
-}
-
-// Expor função de teste globalmente
-window.testModal = testModal;
 
 function selectPaymentMethod(method) {
     // Remover classe active de todos os botões
