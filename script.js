@@ -61,6 +61,16 @@ function unformatPhoneNumber(phone) {
     return phone.replace(/\D/g, '');
 }
 
+// Categorias Bloom
+const categories = [
+    { id: 'all', name: 'Todos', icon: 'fas fa-th' },
+    { id: 'destaques', name: 'Destaques', icon: 'fas fa-star' },
+    { id: 'social', name: 'Social', icon: 'fas fa-hashtag' },
+    { id: 'ferramentas', name: 'Ferramentas', icon: 'fas fa-tools' },
+    { id: 'modelo', name: 'Modelo', icon: 'fas fa-user' },
+    { id: 'outros', name: 'Outros', icon: 'fas fa-box' }
+];
+
 // Dados dos produtos
 const products = [
     {
@@ -69,8 +79,9 @@ const products = [
         price: "R$ 90,00",
         originalPrice: "R$ 150,00",
         category: "all",
+        newCategory: "destaques",
         image: "video",
-        videoUrl: "imagens/New Privacy.mp4",
+        videoUrl: "../assets/imagens/New Privacy.mp4",
         autoDelivery: true,
         description: "✅ Tela Atualizada 2025 Quase Idêntica\n✅ Sistema de Entregável após confirmação de compra + Coleta de dados pra LTV\n✅ Dashboard própria com track de onde veio o Lead (Orgânico ou Tráfego Pago)\n✅ Sistema de pagamento PIX integrado SEM SAIR DA LANDING PAGE com QR Code automático e verificação em tempo real\n✅ Galeria interativa com blur effects, hover autoplay nos vídeos e marca d'água personalizada\n✅ Facebook Pixel configurado + lead tracking + UTM parameters para máxima conversão\n✅ ENTREGA IMEDIATA: código fonte completo + assets + documentação\n✅ Fácil Personalização: só trocar fotos/vídeos/pixel está pronto para vender",
         downloadLinks: {
@@ -85,8 +96,9 @@ const products = [
         price: "R$ 90,00",
         originalPrice: "R$ 150,00",
         category: "hot",
+        newCategory: "destaques",
         image: "video",
-        videoUrl: "imagens/new onlyfans.mp4",
+        videoUrl: "../assets/imagens/new onlyfans.mp4",
         autoDelivery: true,
         description: "✅ Tela Atualizada 2025 Quase Idêntica\n✅ Sistema de Entregável após confirmação de compra + Coleta de dados pra LTV\n✅ Dashboard própria com track de onde veio o Lead (Orgânico ou Tráfego Pago)\n✅ Sistema de pagamento PIX integrado SEM SAIR DA LANDING PAGE com QR Code automático e verificação em tempo real\n✅ Galeria interativa com blur effects, hover autoplay nos vídeos e marca d'água personalizada\n✅ Facebook Pixel configurado + lead tracking + UTM parameters para máxima conversão\n✅ ENTREGA IMEDIATA: código fonte completo + assets + documentação\n✅ Fácil Personalização: só trocar fotos/vídeos/pixel está pronto para vender",
         downloadLinks: {
@@ -101,8 +113,9 @@ const products = [
         price: "R$ 65,00",
         originalPrice: "R$ 120,00",
         category: "hot",
+        newCategory: "destaques",
         image: "video",
-        videoUrl: "imagens/old privacy.mp4",
+        videoUrl: "../assets/imagens/old privacy.mp4",
         autoDelivery: true,
         description: "✅ Tela Escalada, Funcional mas no modelo Antigo\n✅ Sistema de Entregável após confirmação de compra + Coleta de dados pra LTV\n✅ Dashboard própria com track de onde veio o Lead (Orgânico ou Tráfego Pago)\n✅ Sistema de pagamento PIX integrado SEM SAIR DA LANDING PAGE com QR Code automático e verificação em tempo real\n✅ Galeria interativa com blur effects, hover autoplay nos vídeos e marca d'água personalizada\n✅ Facebook Pixel configurado + lead tracking + UTM parameters para máxima conversão\n✅ ENTREGA IMEDIATA: código fonte completo + assets + documentação\n✅ Fácil Personalização: só trocar fotos/vídeos/pixel está pronto para vender",
         downloadLinks: {
@@ -116,8 +129,9 @@ const products = [
         title: "Landing Page [Modelo a km de você]",
         price: "R$ 12,90",
         category: "ferramentas",
+        newCategory: "ferramentas",
         image: "video",
-        videoUrl: "imagens/lp editada.mp4",
+        videoUrl: "../assets/imagens/lp editada.mp4",
         autoDelivery: true,
         description: "🚀 Landing Page Modelo Está a 5km de você\n🎯 Autohover e autoplay no fundo\n🔗 Redirect pra onde quiser\n💥 Alta conversão",
         downloadLinks: {
@@ -131,7 +145,8 @@ const products = [
         title: "Corte de Fotos/Vídeos em Massa",
         price: "R$ 19,90",
         category: "all",
-        image: "imagens/corte em massa.jpg",
+        newCategory: "ferramentas",
+        image: "../assets/imagens/corte em massa.jpg",
         type: "image",
         autoDelivery: true,
         description: "🖼️ Corte Automático de Fotos e Vídeos\n✂️ Processa múltiplos arquivos de uma vez\n🎯 Ferramentas profissionais: crop_tool.py e video_crop_tool.py\n⚡ Executável .bat para facilitar o uso\n💾 Scripts Python prontos para usar",
@@ -146,7 +161,8 @@ const products = [
         title: "Encomenda Pessoal",
         price: "",
         category: "all",
-        image: "imagens/encomenda-pessoal.jpg",
+        newCategory: "outros",
+        image: "../assets/imagens/encomenda-pessoal.jpg",
         type: "image",
         description: "🎯 Solução Personalizada para Sua Operação\n💬 Conte-nos o que você precisa\n🚀 Desenvolvemos exatamente o que falta\n📱 Entre em contato: (71) 99292-6937"
     },
@@ -156,7 +172,8 @@ const products = [
         price: "R$ 100,00",
         originalPrice: "R$ 180,00",
         category: "all",
-        image: "imagens/modelos-escaladas.jpg",
+        newCategory: "modelo",
+        image: "../assets/imagens/modelos-escaladas.jpg",
         type: "background",
         autoDelivery: true,
         hasModelSelection: true,
@@ -165,37 +182,37 @@ const products = [
             {
                 id: 1,
                 name: "Modelo Feminino 1",
-                image: "imagens/modelos/modelo1.jpg",
+                image: "../assets/modelos/modelo1.jpg",
                 description: "Modelo profissional feminino para campanhas"
             },
             {
                 id: 2,
                 name: "Modelo Feminino 2", 
-                image: "imagens/modelos/modelo2.jpg",
+                image: "../assets/modelos/modelo2.jpg",
                 description: "Modelo elegante para produtos de beleza"
             },
             {
                 id: 3,
                 name: "Modelo Masculino 1",
-                image: "imagens/modelos/modelo3.jpg", 
+                image: "../assets/modelos/modelo3.jpg", 
                 description: "Modelo masculino para produtos masculinos"
             },
             {
                 id: 4,
                 name: "Modelo Feminino 3",
-                image: "imagens/modelos/modelo4.jpg",
+                image: "../assets/modelos/modelo4.jpg",
                 description: "Modelo jovem para produtos fashion"
             },
             {
                 id: 5,
                 name: "Modelo Masculino 2",
-                image: "imagens/modelos/modelo5.jpg",
+                image: "../assets/modelos/modelo5.jpg",
                 description: "Modelo fitness para produtos esportivos"
             },
             {
                 id: 6,
                 name: "Modelo Feminino 4",
-                image: "imagens/modelos/modelo6.jpg",
+                image: "../assets/modelos/modelo6.jpg",
                 description: "Modelo plus size para inclusividade"
             }
         ],
@@ -204,6 +221,210 @@ const products = [
             backup: "https://drive.google.com/drive/folders/1eCGFe2ATW5vIDInr5AYRxf5PYPDs9hkU?usp=drive_link",
             instructions: "📋 Modelos profissionais para escalar seu negócio"
         }
+    },
+    {
+        id: 8,
+        title: "Modelos Prontas Validadas",
+        price: "R$ 50,00",
+        originalPrice: null,
+        category: "all",
+        newCategory: "modelo",
+        image: "emoji",
+        emoji: "👥",
+        autoDelivery: true,
+        description: "👥 Modelos Validadas e Prontas para Uso\n📸 Fotos profissionais de alta qualidade\n✅ Validadas e testadas em campanhas\n🎯 Múltiplas opções de modelos\n💼 Ideal para e-commerce e marketing digital",
+        downloadLinks: {
+            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            instructions: "📋 Modelos validadas prontas para uso"
+        }
+    },
+    {
+        id: 9,
+        title: "Pack de Áudios",
+        price: "R$ 30,00",
+        originalPrice: "R$ 97,00",
+        category: "all",
+        newCategory: "modelo",
+        image: "emoji",
+        emoji: "🎤",
+        autoDelivery: true,
+        description: "🎤 Pack de Áudios Profissionais\n🎵 Áudios de alta qualidade para campanhas\n✅ Prontos para uso imediato\n🎯 Diversos estilos e durações\n💼 Ideal para marketing e publicidade",
+        downloadLinks: {
+            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            instructions: "📋 Pack de áudios profissionais"
+        }
+    },
+    {
+        id: 10,
+        title: "Contrato Modelo White",
+        price: "R$ 59,00",
+        originalPrice: "R$ 97,00",
+        category: "all",
+        newCategory: "modelo",
+        image: "emoji",
+        emoji: "📄",
+        autoDelivery: true,
+        description: "📄 Contrato Modelo White Label\n📋 Template profissional personalizável\n✅ Pronto para uso em negócios\n🎯 Adaptável para diferentes nichos\n💼 Ideal para freelancers e agências",
+        downloadLinks: {
+            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            instructions: "📋 Contrato modelo white label"
+        }
+    },
+    {
+        id: 11,
+        title: "Tabela de Preço",
+        price: "R$ 15,00",
+        originalPrice: "R$ 35,00",
+        category: "all",
+        newCategory: "modelo",
+        image: "emoji",
+        emoji: "💰",
+        autoDelivery: true,
+        description: "💰 Tabela de Preços Profissional\n📊 Sistema de precificação completo\n✅ Templates personalizáveis\n🎯 Adaptável para qualquer negócio\n💼 Ideal para consultores e freelancers",
+        downloadLinks: {
+            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            instructions: "📋 Tabela de preços profissional"
+        }
+    },
+    {
+        id: 12,
+        title: "Pacote Tufos em Videos",
+        price: "R$ 49,90",
+        originalPrice: "R$ 97,00",
+        category: "all",
+        newCategory: "modelo",
+        image: "emoji",
+        emoji: "🎬",
+        autoDelivery: true,
+        description: "🎬 Pacote Tufos em Vídeos\n📹 Vídeos profissionais para campanhas\n✅ Conteúdo de alta qualidade\n🎯 Diversos estilos e durações\n💼 Ideal para marketing digital e social media",
+        downloadLinks: {
+            main: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            backup: "https://drive.google.com/drive/folders/1emzV8VdfoskXkJiIKOj9Re3mkJAzwEpS?usp=sharing",
+            instructions: "📋 Pacote tufos em vídeos"
+        }
+    },
+    {
+        id: 13,
+        title: "Tela Fake Privacy",
+        price: "R$ 147,90",
+        originalPrice: "R$ 250,00",
+        category: "destaques",
+        newCategory: "destaques",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "⭐ Tela Privacy Atualizada 2025\n✅ Sistema de pagamento PIX integrado\n🔥 Entrega automática após pagamento\n📊 Dashboard com tracking completo\n🎯 Galeria interativa profissional"
+    },
+    {
+        id: 9,
+        title: "Verificado Modelo Black",
+        price: "R$ 197,00",
+        originalPrice: "R$ 297,00",
+        category: "destaques",
+        newCategory: "destaques",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "✅ Verificado Azul Instantâneo\n🔥 Sistema Black Premium\n⚡ Entrega rápida garantida\n💎 Modelo exclusivo 2025\n🎯 Suporte prioritário incluído"
+    },
+    {
+        id: 10,
+        title: "Copys Validadas Oliveira",
+        price: "R$ 50,00",
+        originalPrice: "R$ 297,00",
+        category: "destaques",
+        newCategory: "destaques",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "📝 Copys testadas e aprovadas\n💰 Alta taxa de conversão\n🚀 Metodologia Oliveira exclusiva\n✅ Mais de 500 copys prontas\n🎯 Ideais para anúncios e vendas"
+    },
+    {
+        id: 11,
+        title: "Pack de Áudios x1",
+        price: "R$ 30,00",
+        originalPrice: "R$ 97,00",
+        category: "destaques",
+        newCategory: "destaques",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "🎤 Pacote completo de áudios\n✅ Prontos para usar em anúncios\n🔥 Vozes profissionais\n⚡ Entrega automática\n📊 Formato otimizado para todas as plataformas"
+    },
+    {
+        id: 12,
+        title: "Zap Voice Vitalício",
+        price: "R$ 49,90",
+        originalPrice: "R$ 79,90",
+        category: "destaques",
+        newCategory: "destaques",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "🎙️ Sistema de voz para WhatsApp\n♾️ Acesso vitalício\n✅ Vozes ultra realistas\n🚀 Economia de tempo garantida\n🎯 Suporte técnico incluído"
+    },
+    {
+        id: 13,
+        title: "Contas Instagram Antigas",
+        price: "R$ 25,00",
+        originalPrice: "R$ 55,00",
+        category: "social",
+        newCategory: "social",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "📱 Contas do Instagram com histórico\n✅ Contas antigas e verificadas\n🔒 Seguras e prontas para uso\n⚡ Entrega imediata após pagamento\n📊 Ideais para marketing e divulgação"
+    },
+    {
+        id: 14,
+        title: "Contas Telegram Premium",
+        price: "R$ 15,00",
+        originalPrice: "R$ 35,00",
+        category: "social",
+        newCategory: "social",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "💬 Contas Telegram prontas para uso\n⭐ Acesso Premium incluído\n🚀 Ideal para grupos e canais\n✅ Entrega automática\n🔐 Seguras e verificadas"
+    },
+    {
+        id: 15,
+        title: "Contas TikTok",
+        price: "R$ 20,00",
+        originalPrice: "R$ 47,00",
+        category: "social",
+        newCategory: "social",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "🎵 Contas TikTok prontas\n✅ Com histórico de uso\n📈 Ideais para marketing viral\n⚡ Entrega imediata\n🎯 Alta taxa de engajamento"
+    },
+    {
+        id: 16,
+        title: "Grupo VIP Telegram",
+        price: "R$ 50,00",
+        category: "social",
+        newCategory: "social",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "🔥 Acesso ao Grupo VIP\n💎 Conteúdo exclusivo diário\n🚀 Estratégias de crescimento\n👥 Networking com profissionais\n📚 Materiais exclusivos"
+    },
+    {
+        id: 17,
+        title: "Pacote Divulgação Completa",
+        price: "R$ 249,00",
+        originalPrice: "R$ 529,00",
+        category: "social",
+        newCategory: "social",
+        image: "../assets/imagens/modelos-escaladas.jpg",
+        type: "image",
+        autoDelivery: true,
+        description: "📢 Pacote completo de divulgação\n🎯 Posts programados para todas as redes\n📊 Analytics e relatórios\n🚀 Alcance máximo garantido\n✅ Suporte especializado incluído"
     }
 ];
 
@@ -236,6 +457,15 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeUserDatabase();
     initializePurchaseCounter();
     initializeSocialProofNotifications();
+
+    // Aplicar animações aos elementos quando carregados
+    const animatedElements = document.querySelectorAll('.stat-card, .product-card, .step');
+    animatedElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(el);
+    });
 });
 
 
@@ -259,71 +489,92 @@ function setupEventListeners() {
     });
 }
 
-// Renderizar produtos baseado na categoria selecionada
+// Renderizar produtos em esteiras (Bloom Style)
 function renderProducts() {
-    console.log('🎨 Iniciando renderização de produtos...');
-    console.log('📊 Total de produtos:', products.length);
-    console.log('🏷️ Categoria atual:', currentCategory);
+    console.log('🌸 Bloom: Iniciando renderização de produtos em esteiras...');
     
-    const productsContainer = document.getElementById('productsGrid');
-    if (!productsContainer) {
-        console.error('❌ Container de produtos não encontrado');
+    const carouselsContainer = document.getElementById('categoryCarousels');
+    if (!carouselsContainer) {
+        console.error('❌ Container de carrosséis não encontrado');
         return;
     }
     
-    if (products.length === 0) {
-        productsContainer.innerHTML = '<p>Nenhum produto encontrado</p>';
-        return;
-    }
+    carouselsContainer.innerHTML = '';
     
-    let filteredProducts;
-    if (currentCategory === 'all' || currentCategory === '') {
-        filteredProducts = products;
-    } else {
-        filteredProducts = products.filter(product => product.category === currentCategory);
-    }
+    // Renderizar cada categoria como uma esteira
+    categories.forEach(category => {
+        if (category.id === 'all') return; // Pular "Todos"
+        
+        const categoryProducts = products.filter(p => p.newCategory === category.id);
+        if (categoryProducts.length === 0) return;
+        
+        const sectionHTML = `
+            <div class="category-section">
+                <div class="category-header">
+                    <i class="${category.icon}" style="font-size: 32px; color: var(--primary-orange);"></i>
+                    <h3 class="category-title">${category.name}</h3>
+                </div>
+                <div class="products-carousel" id="carousel-${category.id}">
+                    ${categoryProducts.map(product => createProductCard(product)).join('')}
+                </div>
+            </div>
+        `;
+        
+        carouselsContainer.innerHTML += sectionHTML;
+    });
     
-    productsContainer.innerHTML = filteredProducts.map(product => `
-        <div class="product-card" data-product-id="${product.id}">
-            <div class="product-image">
+    console.log('✅ Esteiras renderizadas com sucesso');
+}
+
+// Criar card de produto (Bloom Style)
+function createProductCard(product) {
+    const discount = product.originalPrice ? 
+        Math.round((1 - parseFloat(product.price.replace('R$ ', '').replace(',', '.')) / 
+        parseFloat(product.originalPrice.replace('R$ ', '').replace(',', '.'))) * 100) : 0;
+    
+    return `
+        <div class="product-card" data-product-id="${product.id}" onclick="addToCart(${product.id})">
+            <div class="product-card-image">
                 ${product.videoUrl ? `
-                    <video autoplay muted loop style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    <video autoplay muted loop>
                         <source src="${product.videoUrl}" type="video/mp4">
                     </video>
                 ` : `
-                    <img src="${product.image}" alt="${product.title}" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    <img src="${product.image}" alt="${product.title}">
                 `}
-                ${product.autoDelivery ? `
-                    <div class="auto-delivery-tag" style="position: absolute; top: 10px; right: 10px; background: linear-gradient(135deg, #25D366, #1ea952); color: white; padding: 4px 8px; border-radius: 12px; font-size: 9px; font-weight: 700; z-index: 10;">ENTREGA AUTOMÁTICA</div>
-                ` : ''}
             </div>
-            <div class="product-title">${product.title}</div>
-            <div class="product-price">
+            <div class="product-card-content">
+                <div class="product-card-main">
+                    <h4 class="product-card-title">${product.title}</h4>
+                    <div class="product-price-section">
+                        ${product.originalPrice ? `
+                            <span class="product-price-original">${product.originalPrice}</span>
+                            <span class="product-price-discount">↓ ${discount}%</span>
+                    ` : ''}
+                </div>
+                    ${product.price ? `
+                        <div class="product-price-current">
+                            ${product.price}
+                            <i class="fas fa-truck" style="font-size: 16px;"></i>
+                        </div>
+                        <div class="product-price-pix">
+                            <i class="fas fa-diamond" style="color: var(--secondary-orange);"></i>
+                            À vista no PIX
+                        </div>
+                    ` : ''}
+                </div>
                 ${product.price ? `
-                    <span class="price">${product.price}</span>
-                    ${product.originalPrice ? `<span class="original-price">${product.originalPrice}</span>` : ''}
-                ` : ''}
-            </div>
-            <div class="product-buttons">
-                ${product.price ? `
-                    <button class="product-btn buy-btn" onclick="addToCart(${product.id})">
-                        <i class="fas fa-shopping-cart"></i>
+                    <button class="product-card-button">
                         Comprar Agora
                     </button>
                 ` : `
-                    <button class="product-btn contact-btn" onclick="contactWhatsApp()">
-                        <i class="fab fa-whatsapp"></i>
+                    <button class="product-card-button" onclick="event.stopPropagation(); contactWhatsApp();">
                         Entrar em Contato
                     </button>
                 `}
-            </div>
         </div>
-    `).join('');
-    
-    console.log('✅ Produtos renderizados com sucesso');
-    
-    // Adicionar estilos para preços
-    addPriceStyles();
+        </div>
+    `;
 }
 
 // ========================================
@@ -343,7 +594,7 @@ function addPriceStyles() {
         .price {
             font-size: 18px;
             font-weight: 700;
-            color: #25D366;
+            color: #f28625;
         }
         
         .original-price {
@@ -383,146 +634,7 @@ function addPriceStyles() {
     document.head.appendChild(style);
 }
 
-// Criar card do produto
-function createProductCard(product) {
-    const card = document.createElement('div');
-    card.className = 'product-card';
-    card.setAttribute('data-product-id', product.id);
-    
-    let mediaContent;
-    if (product.image === 'video' && product.videoUrl) {
-        mediaContent = `
-            <video class="product-video" muted loop playsinline preload="metadata" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <source src="${product.videoUrl}" type="video/mp4">
-                Seu navegador não suporta vídeos HTML5.
-            </video>
-            <img class="product-img" src="imagens/modelos-escaladas.jpg" alt="${product.title}" style="display:none; width:100%; height:100%; object-fit:cover;">
-        `;
-    } else if (product.type === 'background') {
-        mediaContent = `
-            <div class="product-background" style="background-image: url('${product.image}')"></div>
-        `;
-    } else if (product.type === 'image') {
-        mediaContent = `
-            <img src="${product.image}" alt="${product.title}" class="product-img">
-        `;
-    } else if (product.image === 'whatsapp') {
-        mediaContent = `<div class="product-whatsapp">📱</div>`;
-    } else {
-        mediaContent = `<div class="product-emoji">${product.image}</div>`;
-    }
-    
-    // Calcular desconto se houver preço original
-    let discountPercent = 0;
-    if (product.originalPrice && product.price) {
-        const original = parseFloat(product.originalPrice.replace('R$ ', '').replace(',', '.'));
-        const current = parseFloat(product.price.replace('R$ ', '').replace(',', '.'));
-        discountPercent = Math.round(((original - current) / original) * 100);
-    }
-    
-    let buttonsHtml;
-    let priceHtml = '';
-    
-    if (product.price) {
-        if (product.originalPrice && discountPercent > 0) {
-            priceHtml = `
-                <div class="product-pricing">
-                    <div class="price-original">${product.originalPrice}</div>
-                    <div class="price-current-wrapper">
-                        <p class="product-price">${product.price}</p>
-                        <span class="discount-badge">${discountPercent}% OFF</span>
-                    </div>
-                </div>
-            `;
-        } else {
-            priceHtml = `<p class="product-price">${product.price}</p>`;
-        }
-    }
-    
-    if (product.whatsappUrl) {
-        buttonsHtml = `
-            <div class="product-buttons">
-                <a href="${product.whatsappUrl}" target="_blank" class="product-btn whatsapp-btn">
-                    <i class="fab fa-whatsapp"></i> WhatsApp
-                </a>
-            </div>
-        `;
-    } else {
-        buttonsHtml = `
-            <div class="product-buttons">
-                <button class="product-btn buy-btn" onclick="addToCart(${product.id})">
-                    <i class="fas fa-shopping-cart"></i>
-                    Comprar
-                </button>
-            </div>
-        `;
-    }
-    
-    // Tag de entrega automática
-    const autoDeliveryTag = product.autoDelivery ? 
-        `<div class="auto-delivery-tag">Entrega Automática</div>` : '';
-
-    // Adicionar classe para produtos sem tag
-    if (!product.autoDelivery) {
-        card.classList.add('no-auto-delivery');
-    }
-
-    card.innerHTML = `
-        ${autoDeliveryTag}
-        <div class="product-image">
-            ${mediaContent}
-        </div>
-        <h3 class="product-title">${product.title}</h3>
-        ${priceHtml}
-        ${buttonsHtml}
-    `;
-    
-    // Adicionar funcionalidade hover para vídeos
-    if (product.image === 'video' && product.videoUrl) {
-        const video = card.querySelector('.product-video');
-        if (video) {
-            // Adicionar eventos imediatamente
-            card.addEventListener('mouseenter', () => {
-                console.log('Mouse enter - tentando reproduzir vídeo');
-                video.play().catch(e => console.log('Erro ao reproduzir vídeo:', e));
-            });
-            card.addEventListener('mouseleave', () => {
-                console.log('Mouse leave - pausando vídeo');
-                video.pause();
-                video.currentTime = 0; // Volta para o início
-            });
-            
-            // Debug: verificar se o vídeo carregou
-            video.addEventListener('loadeddata', () => {
-                console.log('Vídeo carregado:', product.title);
-            });
-            
-            video.addEventListener('error', (e) => {
-                console.log('Erro no vídeo:', product.title, e);
-                // Mostrar imagem fallback se vídeo falhar
-                const fallbackImg = video.nextElementSibling;
-                if (fallbackImg && fallbackImg.classList.contains('product-img')) {
-                    video.style.display = 'none';
-                    fallbackImg.style.display = 'block';
-                }
-            });
-            
-            // Verificar se o vídeo está vazio (0 bytes) após carregar metadados
-            video.addEventListener('loadedmetadata', () => {
-                if (video.duration === 0 || video.videoWidth === 0 || video.videoHeight === 0) {
-                    console.log('Vídeo vazio detectado:', product.title);
-                    const fallbackImg = video.nextElementSibling;
-                    if (fallbackImg && fallbackImg.classList.contains('product-img')) {
-                        video.style.display = 'none';
-                        fallbackImg.style.display = 'block';
-                    }
-                }
-            });
-        }
-    }
-    
-    return card;
-}
+// Função createProductCard antiga removida - usando a nova versão Bloom acima
 
 // Adicionar produto ao carrinho
 function addToCart(productId) {
@@ -534,30 +646,8 @@ function addToCart(productId) {
             return;
         }
         
-        // Se for produto com seleção de modelos, abrir carrossel
-        if (product.hasModelSelection) {
-            showModelSelectionModal(product);
-            return;
-        }
-        
-        // Verificar se usuário está logado
-        if (!window.currentUser) {
-            // Salvar produto pendente para compra após login
-            pendingPurchase = {
-                productId: productId,
-                product: product,
-                timestamp: new Date()
-            };
-            
-            // Mostrar modal de login obrigatório
-            showLoginRequiredModal(product);
-            return;
-        }
-        
-        // Usuário logado - prosseguir com compra normal
-        cartCount++;
-        updateCartCount();
-        openPaymentModal(product);
+        // Redirecionar para página de detalhes do produto
+        window.location.href = `product-detail.html?id=${productId}`;
     }
 }
 
@@ -607,16 +697,7 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Aplicar animações aos elementos quando carregados
-document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.stat-card, .product-card, .step');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
+// Animações aplicadas no primeiro DOMContentLoaded acima
 
 // Funcionalidade de busca (para futuras implementações)
 function searchProducts(query) {
@@ -739,6 +820,8 @@ function testVideo() {
 
 // Funções do Modal de Pagamento
 function openPaymentModal(product) {
+    console.log('🔍 Iniciando abertura do modal de pagamento...');
+    
     const modal = document.getElementById('paymentModal');
     const productName = document.getElementById('productName');
     const productPrice = document.getElementById('productPrice');
@@ -747,7 +830,26 @@ function openPaymentModal(product) {
     const productDescriptionText = document.getElementById('productDescriptionText');
     const productFeaturesList = document.getElementById('productFeaturesList');
     
-    if (modal && productName && productPrice) {
+    console.log('🔍 Elementos encontrados:', {
+        modal: !!modal,
+        productName: !!productName,
+        productPrice: !!productPrice,
+        productNameDesc: !!productNameDesc,
+        productPriceDesc: !!productPriceDesc,
+        productDescriptionText: !!productDescriptionText
+    });
+    
+    if (!modal) {
+        console.error('❌ Modal de pagamento não encontrado!');
+        return;
+    }
+    
+    if (!productName || !productPrice) {
+        console.error('❌ Elementos essenciais do modal não encontrados!');
+        return;
+    }
+    
+    try {
         // DEFINIR PRODUTO ATUAL GLOBALMENTE - CORREÇÃO CRÍTICA
         window.currentProduct = product;
         console.log('🎯 Produto atual definido:', product.title, product.id);
@@ -772,27 +874,124 @@ function openPaymentModal(product) {
         }
         
         // Atualizar valor no PushinPay
-        const valor = parseFloat(product.price.replace('R$ ', '').replace(',', '.'));
-        PushinPayReal.atualizarValorPlano(valor, product.title);
+        if (typeof window.PushinPayReal !== 'undefined') {
+            const valor = parseFloat(product.price.replace('R$ ', '').replace(',', '.'));
+            window.PushinPayReal.atualizarValorPlano(valor, product.title);
+            console.log('💰 Valor atualizado no PushinPay:', valor);
+        } else {
+            console.warn('⚠️ PushinPayReal não disponível');
+        }
         
         // Mostrar aba de descrição por padrão
         switchTab('description');
         
+        // Forçar exibição do modal com múltiplas abordagens
         modal.style.display = 'block';
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+        modal.style.zIndex = '9999';
+        
+        // Garantir que o modal esteja no topo
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        
+        // Bloquear scroll do body
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        
+        console.log('✅ Modal de pagamento exibido com sucesso!');
+        console.log('🔍 Estado do modal:', {
+            display: modal.style.display,
+            visibility: modal.style.visibility,
+            opacity: modal.style.opacity,
+            zIndex: modal.style.zIndex
+        });
+        
+    } catch (error) {
+        console.error('❌ Erro ao abrir modal de pagamento:', error);
     }
 }
 
 function closePaymentModal() {
+    console.log('🔍 Fechando modal de pagamento...');
+    
     const modal = document.getElementById('paymentModal');
     if (modal) {
+        // Restaurar estilos do modal
         modal.style.display = 'none';
+        modal.style.visibility = 'hidden';
+        modal.style.opacity = '0';
+        
+        // Restaurar estilos do body
         document.body.style.overflow = 'auto';
+        document.body.style.position = 'static';
+        document.body.style.width = 'auto';
         
         // Parar verificação de pagamento
-        PushinPayReal.pararVerificacao();
+        if (typeof window.PushinPayReal !== 'undefined') {
+            window.PushinPayReal.pararVerificacao();
+        }
+        
+        console.log('✅ Modal de pagamento fechado com sucesso!');
+    } else {
+        console.warn('⚠️ Modal de pagamento não encontrado para fechar');
     }
 }
+
+// Função de debug para testar o modal
+function debugModal() {
+    console.log('🔧 DEBUG MODAL - Verificando elementos...');
+    
+    const modal = document.getElementById('paymentModal');
+    console.log('Modal encontrado:', !!modal);
+    
+    if (modal) {
+        console.log('Estado atual do modal:', {
+            display: modal.style.display,
+            visibility: modal.style.visibility,
+            opacity: modal.style.opacity,
+            zIndex: modal.style.zIndex,
+            position: modal.style.position,
+            top: modal.style.top,
+            left: modal.style.left,
+            width: modal.style.width,
+            height: modal.style.height
+        });
+        
+        // Testar abertura forçada
+        console.log('🧪 Testando abertura forçada...');
+        modal.style.display = 'block';
+        modal.style.visibility = 'visible';
+        modal.style.opacity = '1';
+        modal.style.zIndex = '9999';
+        
+        setTimeout(() => {
+            console.log('Estado após abertura forçada:', {
+                display: modal.style.display,
+                visibility: modal.style.visibility,
+                opacity: modal.style.opacity
+            });
+        }, 100);
+    }
+    
+    // Verificar elementos internos
+    const elements = [
+        'productName', 'productPrice', 'productNameDesc', 'productPriceDesc',
+        'productDescriptionText', 'productFeaturesList'
+    ];
+    
+    elements.forEach(id => {
+        const element = document.getElementById(id);
+        console.log(`${id}:`, !!element);
+    });
+}
+
+// Expor função de debug globalmente
+window.debugModal = debugModal;
 
 function selectPaymentMethod(method) {
     // Remover classe active de todos os botões
@@ -959,7 +1158,7 @@ function copyPixCode() {
             
             setTimeout(() => {
                 btn.innerHTML = originalText;
-                btn.style.backgroundColor = '#25D366';
+                btn.style.backgroundColor = '#f28625';
             }, 2000);
         }
     } else {
@@ -971,7 +1170,7 @@ function copyPixCode() {
         
         setTimeout(() => {
             btn.innerHTML = originalText;
-            btn.style.backgroundColor = '#25D366';
+            btn.style.backgroundColor = '#f28625';
         }, 2000);
     }
 }
@@ -2010,7 +2209,7 @@ function updateProductCardsForUser() {
 // Função para gerar descrição do produto
 function getProductDescription(product) {
     const descriptions = {
-        1: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        1: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Tela Privacy Nova - Versão 2025 Quase Idêntica</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Sistema de Entregável após confirmação de compra</li>
@@ -2029,7 +2228,7 @@ function getProductDescription(product) {
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px;">✅ Pronto para vender imediatamente</li>
             </ul>`,
         
-        2: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        2: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Tela OnlyFans - Versão 2025 Quase Idêntica</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Sistema de Entregável após confirmação de compra</li>
@@ -2048,7 +2247,7 @@ function getProductDescription(product) {
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px;">✅ Pronto para vender imediatamente</li>
             </ul>`,
         
-        3: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        3: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Tela Privacy Antiga - Tela Escalada, Funcional mas no modelo Antigo</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Sistema de Entregável após confirmação de compra</li>
@@ -2067,7 +2266,7 @@ function getProductDescription(product) {
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px;">✅ Pronto para vender imediatamente</li>
             </ul>`,
         
-        3: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        3: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">🚀 Landing Page "Está a 5km de você" completa</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">🎯 Sistema de autohover e autoplay no fundo</li>
@@ -2086,7 +2285,7 @@ function getProductDescription(product) {
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px;">✅ Suporte técnico incluso</li>
             </ul>`,
         
-        4: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        4: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ App de Corte em Massa Profissional</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Remove logomarcas automaticamente</li>
@@ -2105,7 +2304,7 @@ function getProductDescription(product) {
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px;">✅ Garantia de funcionamento 100%</li>
             </ul>`,
         
-        5: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        5: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Solução personalizada para sua operação</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Desenvolvimento sob medida</li>
@@ -2124,7 +2323,7 @@ function getProductDescription(product) {
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px;">✅ Parceria de longo prazo</li>
             </ul>`,
         
-        6: `<h4 style="color: #25D366; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
+        6: `<h4 style="color: #f28625; margin-top: 0; margin-bottom: 15px;">🎯 O que você recebe:</h4>
             <ul style="list-style: none; padding: 0; margin: 0;">
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Coleção completa de modelos profissionais</li>
                 <li style="padding: 8px 0; color: #cccccc; font-size: 15px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #333333;">✅ Mais de 100 templates exclusivos</li>
@@ -2390,7 +2589,7 @@ function renderModels(models) {
             <div class="model-image-container">
                 ${videoBadge}
                 <img src="${modelImage}" alt="${modelName}" class="model-image" 
-                     onerror="this.src='imagens/modelos-escaladas.jpg'">
+                     onerror="this.src='../assets/imagens/modelos-escaladas.jpg'">
                 <div class="model-overlay">
                     <button onclick="selectModel(${model.id})" class="select-model-btn">
                         <i class="fas fa-eye"></i>
@@ -2505,8 +2704,8 @@ function obterPreviewsDaModelo(modelName, maxImagens = 24) {
     // Ex: catgirl (1).jpg, catgirl (2).jpg, etc.
     for (let i = 1; i <= maxImagens; i++) {
         const caminhos = [
-            `carrossel/imagens/modelos/modelos - preview/${slug} (${i}).jpg`,
-            `carrossel/imagens/modelos/Modelos - Preview/${slug} (${i}).jpg`
+            `../assets/modelos/modelos - preview/${slug} (${i}).jpg`,
+            `../assets/modelos/Modelos - Preview/${slug} (${i}).jpg`
         ];
         
         // Usa o primeiro caminho por padrão (a validação será feita no onerror da img)
@@ -2535,9 +2734,9 @@ function showAllPreviewImages() {
         previewContainer.className = 'all-preview-images';
         previewContainer.style.marginTop = '20px';
         previewContainer.style.padding = '15px';
-        previewContainer.style.background = 'rgba(37, 211, 102, 0.1)';
+        previewContainer.style.background = 'rgba(242, 134, 37, 0.1)';
         previewContainer.style.borderRadius = '10px';
-        previewContainer.style.border = '1px solid rgba(37, 211, 102, 0.2)';
+        previewContainer.style.border = '1px solid rgba(242, 134, 37, 0.2)';
         selectedModelInfo.appendChild(previewContainer);
     }
     
@@ -2547,7 +2746,7 @@ function showAllPreviewImages() {
     // Adicionar título
     const title = document.createElement('h4');
     title.textContent = 'Todas as Versões Disponíveis:';
-    title.style.color = '#25D366';
+    title.style.color = '#f28625';
     title.style.marginBottom = '15px';
     title.style.fontSize = '16px';
     title.style.fontWeight = '600';
@@ -2617,7 +2816,7 @@ function showAllPreviewImages() {
         imageContainer.appendChild(img);
 
         imageContainer.onmouseenter = function() {
-            this.style.borderColor = 'rgba(37, 211, 102, 0.5)';
+            this.style.borderColor = 'rgba(242, 134, 37, 0.5)';
             this.style.transform = 'scale(1.02)';
         };
         
@@ -2863,7 +3062,7 @@ function incrementarContadorManual() {
         
         // Adicionar animação
         statNumber.style.transform = 'scale(1.1)';
-        statNumber.style.color = '#25D366';
+        statNumber.style.color = '#f28625';
         statNumber.style.transition = 'all 0.3s ease';
         
         setTimeout(() => {
@@ -2911,7 +3110,7 @@ function initializeSocialProofNotifications() {
             z-index: 9999;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-width: 280px;
-            border: 1px solid rgba(37, 211, 102, 0.3);
+            border: 1px solid rgba(242, 134, 37, 0.3);
             animation: slideInLeft 0.5s ease-out, slideOutLeft 0.5s ease-in 4.5s;
             display: flex;
             align-items: center;
@@ -2922,7 +3121,7 @@ function initializeSocialProofNotifications() {
             <div style="font-size: 28px;">🛒</div>
             <div style="flex: 1;">
                 <div style="font-weight: 600; font-size: 14px; margin-bottom: 3px;">
-                    ${nome} <span style="color: #25D366;">se tornou cliente</span>
+                    ${nome} <span style="color: #f28625;">se tornou cliente</span>
                 </div>
                 <div style="font-size: 12px; color: #aaa;">
                     Comprou: ${produto}
