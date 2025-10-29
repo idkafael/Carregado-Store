@@ -397,7 +397,7 @@ if (helpBtn) {
 // ============================================
 
 // Backend API URL
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 
 // Enhanced blur protection system
 function applyBlurProtection() {

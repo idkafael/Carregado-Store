@@ -10,7 +10,7 @@ const webhooksRoutes = require('./routes/webhooks');
 const subscriptionsRoutes = require('./routes/subscriptions');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 // Middlewares
 app.use(cors({
@@ -26,6 +26,9 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Servir arquivos estáticos (para Hostinger)
+app.use(express.static('.'));
 
 // Log de requisições
 app.use((req, res, next) => {
