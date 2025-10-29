@@ -25,7 +25,7 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/server.js"
+      "dest": "https://carregado-store-o6nv4bfzq-rafaels-projects-bc90a5e9.vercel.app/api/$1"
     },
     {
       "src": "/styles.css",
