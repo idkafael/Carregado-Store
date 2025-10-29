@@ -8,7 +8,7 @@ const Subscription = require('../models/Subscription');
  * POST /api/stripe-webhook
  * Webhook para receber eventos do Stripe
  */
-router.post('/stripe-webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+router.post('/', express.raw({ type: 'application/json' }), async (req, res) => {
     const sig = req.headers['stripe-signature'];
     const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
     

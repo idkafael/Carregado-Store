@@ -17,6 +17,13 @@ app.use(cors({
     origin: '*', // Em produção, especifique seu domínio
     credentials: true
 }));
+
+// Headers para permitir CSS e fontes
+app.use((req, res, next) => {
+    res.setHeader('Content-Security-Policy', "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob:; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src 'self' https://api.stripe.com;");
+    next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
