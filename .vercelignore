@@ -1,0 +1,24 @@
+# Arquivos para ignorar no deploy Vercel
+node_modules/
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.log
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+database.sqlite
+database.sqlite-journal
+*.md
+!README.md
+!DEPLOY_VERCEL.md
+!CONFIGURAR_STRIPE.md
+!GUIA_STRIPE.md
+!BACKEND_README.md
+!CONFIGURAR_LINK_ENTREGA.md
+stripe.env
+config.env.txt
+setup-stripe.sh

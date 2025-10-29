@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KhaosStore - Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Left Sidebar -->
+    <aside class="sidebar-left">
+        <div class="logo">
+            <div class="logo-circle">Ra</div>
+        </div>
+        
+        <nav class="main-nav">
+            <a href="#" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bell"></i>
+                <span>Notifications</span>
+            </a>
+            <a href="#" class="nav-item active">
+                <i class="fas fa-comment-dots"></i>
+                <span>Messages</span>
+                <span class="badge">1</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Collections</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user-plus"></i>
+                <span>Subscriptions</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-user-circle"></i>
+                <span>My Profile</span>
+            </a>
+            <a href="#" class="nav-item">
+                <i class="fas fa-ellipsis-h"></i>
+                <span>More</span>
+            </a>
+        </nav>
+        
+        <button class="new-post-btn">
+            <i class="fas fa-plus"></i>
+            <span>NEW POST</span>
+        </button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <button class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            
+            <div class="profile-header-info">
+                <h1 class="profile-name">
+                    KhaosStore<i class="fas fa-check-circle verified"></i>
+                </h1>
+                <div class="profile-header-stats">
+                <span class="stat-item">
+                    <i class="fas fa-images"></i> 388
+                </span>
+                <span class="stat-separator">•</span>
+                <span class="stat-item">
+                    <i class="fas fa-play-circle"></i> 67
+                </span>
+                <span class="stat-separator">•</span>
+                <span class="stat-item">
+                    <i class="fas fa-video"></i> 33
+                </span>
+                <span class="stat-separator">•</span>
+                <span class="stat-item">
+                    <i class="fas fa-heart"></i> 193.1K
+                </span>
+                </div>
+            </div>
+            
+            <div class="profile-header-actions">
+                <button class="icon-btn">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Banner do Perfil -->
+        <div class="profile-banner">
+            <img src="Images/banner.jpg" alt="Banner">
+        </div>
+
+        <!-- Info do Perfil -->
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <img src="Images/profile.jpg" alt="KhaosStore">
+            </div>
+            
+            <div class="profile-details">
+                <h2 class="profile-username">
+                    KhaosStore<i class="fas fa-check-circle verified"></i>
+                </h2>
+                <p class="profile-handle">use.khaos <span class="separator">•</span> <span class="status-available"><span class="status-dot"></span>Available</span></p>
+                
+                <div class="profile-description">
+                    <p>faço ferramentas ou clono o que quiser sob demanda  ><</p>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <button class="icon-btn">
+                    <i class="fas fa-star"></i>
+                </button>
+                <button class="icon-btn">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Subscription Section -->
+        <div class="subscription-section">
+            <h3 class="section-title">SUBSCRIPTION</h3>
+            
+            <div class="promo-banner">
+                <h4>Limited offer: 75% discount for the first 31 days!</h4>
+                <div class="promo-message">
+                    <img src="Images/profile.jpg" alt="KhaosStore" class="promo-avatar">
+                    <p>faça pedidos personalizados comigo😘😊</p>
+                </div>
+            </div>
+            
+            <button class="subscribe-btn" id="subscribeMonthly">
+                <span>SUBSCRIBE</span>
+                <span class="price">$3.75 for 31 days</span>
+            </button>
+            
+            <p class="normal-price">Normal Price $15 /month</p>
+            
+            <div class="subscription-packages">
+                <button class="package-toggle">
+                    <span>SUBSCRIPTION PACKAGES</span>
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+                
+                <div class="packages-list">
+                    <button class="package-item" id="subscribeQuarterly">
+                        <span class="package-duration">3 MONTHS (33% off)</span>
+                        <span class="package-price">$9.99 total</span>
+                    </button>
+                    <button class="package-item" id="subscribeYearly">
+                        <span class="package-duration">12 MONTHS (50% off)</span>
+                        <span class="package-price">$29.99 total</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Tabs -->
+        <div class="content-tabs">
+            <button class="tab active">
+                386 POSTS
+            </button>
+            <button class="tab">
+                457 MEDIA
+            </button>
+        </div>
+
+        <!-- Posts Area -->
+        <div class="posts-content" id="postsContent">
+        <!-- Locked Content Area -->
+        <div class="locked-content" id="lockedContent">
+            <!-- Preview video with blur -->
+            <div class="preview-video blurred" id="previewVideo">
+                <video autoplay loop muted playsinline>
+                    <source src="Images/central.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+            </div>
+            
+            <!-- Lock overlay -->
+            <div class="lock-overlay" id="lockOverlay">
+                <div class="lock-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                
+                <div class="content-stats">
+                    <span><i class="fas fa-images"></i> 386</span>
+                    <span>•</span>
+                    <span><i class="fas fa-play-circle"></i> 388</span>
+                    <span>•</span>
+                    <span><i class="fas fa-video"></i> 67</span>
+                    <span>•</span>
+                    <span><i class="fas fa-microphone"></i> 2</span>
+                </div>
+                
+                <button class="unlock-btn" id="unlockBtn">
+                    SUBSCRIBE TO SEE USER POSTS
+                </button>
+            </div>
+        </div>
+        </div>
+
+        <!-- Media Area (3x3 Grid) -->
+        <div class="media-content hidden" id="mediaContent">
+            <div class="media-grid">
+                <!-- Media 1 - Image -->
+                <div class="media-item blurred">
+                    <img src="Images/lateral-1.jpg" alt="Media 1">
+                    <div class="media-overlay">
+                        <span class="media-label">1</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 2 - Image -->
+                <div class="media-item blurred">
+                    <img src="Images/lateral-2.jpg" alt="Media 2">
+                    <div class="media-overlay">
+                        <span class="media-label">2</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 3 - Image -->
+                <div class="media-item blurred">
+                    <img src="Images/lateral-3.jpg" alt="Media 3">
+                    <div class="media-overlay">
+                        <span class="media-label">3</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 4 - Video M4V -->
+                <div class="media-item blurred">
+                    <video muted>
+                        <source src="Images/lateral-4.m4v" type="video/mp4">
+                    </video>
+                    <div class="media-overlay">
+                        <span class="media-label">4</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 5 - Video M4V -->
+                <div class="media-item blurred">
+                    <video muted>
+                        <source src="Images/lateral-5.m4v" type="video/mp4">
+                    </video>
+                    <div class="media-overlay">
+                        <span class="media-label">5</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 6 - Video MP4 -->
+                <div class="media-item blurred">
+                    <video muted>
+                        <source src="Images/lateral-6.mp4" type="video/mp4">
+                    </video>
+                    <div class="media-overlay">
+                        <span class="media-label">6</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 7 - Image -->
+                <div class="media-item blurred">
+                    <img src="Images/lateral-7.jpg" alt="Media 7">
+                    <div class="media-overlay">
+                        <span class="media-label">7</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 8 - Image -->
+                <div class="media-item blurred">
+                    <img src="Images/lateral-8.jpg" alt="Media 8">
+                    <div class="media-overlay">
+                        <span class="media-label">8</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                <!-- Media 9 - Image -->
+                <div class="media-item blurred">
+                    <img src="Images/lateral-9.jpg" alt="Media 9">
+                    <div class="media-overlay">
+                        <span class="media-label">9</span>
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="sidebar-right">
+        <div class="subscription-card">
+            <h3>SUBSCRIPTION</h3>
+            
+            <div class="promo-banner-small">
+                <h4>Limited offer: 75% discount for the first 31 days!</h4>
+                <div class="promo-message-small">
+                    <img src="Images/profile.jpg" alt="KhaosStore">
+                    <p>make personalized requests with me 😘😊</p>
+                </div>
+            </div>
+            
+            <button class="subscribe-btn-small" id="subscribeSidebar">
+                <span>SUBSCRIBE</span>
+                <span class="price">$3.75 for 31 days</span>
+            </button>
+            
+            <p class="normal-price-small">Normal Price $15 /month</p>
+        </div>
+        
+        <div class="footer-links">
+            <a href="#">Privacy</a>
+            <span>•</span>
+            <a href="#">Cookie Notice</a>
+            <span>•</span>
+            <a href="#">Terms of Service</a>
+        </div>
+    </aside>
+
+    <!-- Help Button -->
+    <button class="help-btn">
+        <i class="fas fa-question-circle"></i>
+    </button>
+
+    <!-- Stripe Payment Modal -->
+    <div id="paymentModal" class="payment-modal">
+        <div class="payment-modal-content">
+            <button class="payment-modal-close" id="closeModal">&times;</button>
+            <h2>Choose your payment method</h2>
+            <p class="payment-plan-info" id="paymentPlanInfo"></p>
+            
+            <!-- Email Field -->
+            <div class="email-input-wrapper">
+                <label for="payerEmail">Your email:</label>
+                <input type="email" id="payerEmail" placeholder="youremail@example.com" required>
+                <small>To identify your subscription</small>
+            </div>
+            
+            <!-- Currency Selector -->
+            <div class="currency-selector">
+                <label for="currencySelect">Select currency:</label>
+                <select id="currencySelect">
+                    <option value="USD">USD - US Dollar</option>
+                    <option value="EUR">EUR - Euro</option>
+                </select>
+            </div>
+            
+            <!-- Stripe Payment Button -->
+            <button id="stripePayButton" class="stripe-pay-button">
+                <i class="fas fa-credit-card"></i>
+                Pay with Stripe
+            </button>
+            
+            <div class="payment-methods-info">
+                <small>Secure payment processed by Stripe</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal with Delivery Link -->
+    <div id="successModal" class="payment-modal">
+        <div class="payment-modal-content success-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>🎉 Payment Approved!</h2>
+            <p class="success-message">Your subscription has been activated successfully!</p>
+            <p class="plan-details" id="successPlanDetails"></p>
+            
+            <div class="delivery-section">
+                <h3>📦 Your Content is Ready!</h3>
+                <p>Click the button below to access:</p>
+                <a href="#" id="deliveryLink" class="delivery-button" target="_blank">
+                    <i class="fas fa-gift"></i>
+                    ACCESS MY CONTENT
+                </a>
+            </div>
+            
+            <button class="close-success-btn" id="closeSuccess">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
