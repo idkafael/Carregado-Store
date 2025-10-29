@@ -1,7 +1,7 @@
 {
-  "name": "carregadostore-backend",
+  "name": "onlyfans-clone-stripe",
   "version": "1.0.0",
-  "description": "Backend para gerenciar pagamentos Stripe e assinaturas",
+  "description": "OnlyFans Clone com integração Stripe para pagamentos e assinaturas",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

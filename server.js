@@ -44,7 +44,7 @@ app.use('/api', subscriptionsRoutes);
 // Rota de teste
 app.get('/', (req, res) => {
     res.json({
-        message: 'CarregadoStore Backend API',
+        message: 'OnlyFans Clone Backend API',
         version: '1.0.0',
         status: 'running',
         endpoints: {
