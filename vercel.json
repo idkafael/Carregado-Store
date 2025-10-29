@@ -2,46 +2,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "server.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "styles.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "script.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "Images/**",
+      "src": "maintenance.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
-      "src": "/api/(.*)",
-      "dest": "https://carregado-store-o6nv4bfzq-rafaels-projects-bc90a5e9.vercel.app/api/$1"
-    },
-    {
-      "src": "/styles.css",
-      "dest": "/styles.css"
-    },
-    {
-      "src": "/script.js",
-      "dest": "/script.js"
-    },
-    {
-      "src": "/Images/(.*)",
-      "dest": "/Images/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/maintenance.html"
     }
   ]
 }
