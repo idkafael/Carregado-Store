@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { constructWebhookEvent, isValidWebhookEvent, calculateExpirationDate } = require('../utils/stripe');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const User = require('../models/User');
 const Subscription = require('../models/Subscription');
 
@@ -16,7 +16,7 @@ router.post('/', express.raw({ type: 'application/json' }), async (req, res) => 
     
     try {
         // Construir evento do webhook
-        event = constructWebhookEvent(req.body, sig, webhookSecret);
+        event = stripe.webhooks.constructEvent(req.body, sig, webhookSecret);
     } catch (err) {
         console.error('Erro na verificação do webhook:', err.message);
         return res.status(400).send(`Webhook Error: ${err.message}`);
@@ -76,9 +76,25 @@ async function handleCheckoutSessionCompleted(session) {
             return;
         }
         
-        // Atualizar assinatura para ativa
-        const expirationDate = calculateExpirationDate(subscription.plan);
+        // Calcular data de expiração
+        const now = new Date();
+        let expirationDate;
         
+        switch (subscription.plan) {
+            case 'Mensal':
+                expirationDate = new Date(now.getTime() + (31 * 24 * 60 * 60 * 1000));
+                break;
+            case 'Trimestral':
+                expirationDate = new Date(now.getTime() + (90 * 24 * 60 * 60 * 1000));
+                break;
+            case 'Anual':
+                expirationDate = new Date(now.getTime() + (365 * 24 * 60 * 60 * 1000));
+                break;
+            default:
+                expirationDate = new Date(now.getTime() + (31 * 24 * 60 * 60 * 1000));
+        }
+        
+        // Atualizar assinatura para ativa
         await subscription.update({
             status: 'active',
             expires_at: expirationDate,
@@ -90,8 +106,6 @@ async function handleCheckoutSessionCompleted(session) {
         console.log(`   - Valor: $${subscription.price}`);
         console.log(`   - Expira em: ${expirationDate.toISOString()}`);
         
-        // Opcional: Enviar email de confirmação aqui
-        
     } catch (error) {
         console.error('Erro ao processar checkout.session.completed:', error);
     }
@@ -101,7 +115,7 @@ async function handleCheckoutSessionCompleted(session) {
  * GET /api/webhook-test
  * Endpoint para testar se o webhook está funcionando
  */
-router.get('/webhook-test', (req, res) => {
+router.get('/test', (req, res) => {
     res.json({
         success: true,
         message: 'Webhook endpoint funcionando',
