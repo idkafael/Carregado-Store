@@ -33,9 +33,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Servir arquivos estáticos
+app.use(express.static('.'));
+
 // Rotas
 app.use('/api', paymentsRoutes);
-app.use('/api', webhooksRoutes);
+app.use('/api/stripe-webhook', webhooksRoutes);
 app.use('/api', subscriptionsRoutes);
 
 // Rota de teste
