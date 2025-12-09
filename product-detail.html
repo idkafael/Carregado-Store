@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - Bloom</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="payment-system/payment-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Scripts do sistema -->
+    <script src="frontend-secure/config-secure.js"></script>
+    <script src="frontend-secure/api-client.js"></script>
+    <script src="frontend-secure/auth-secure.js"></script>
+    <script src="frontend-secure/payment-secure.js"></script>
+    <script src="frontend-secure/supabase-pix-transactions.js"></script>
+    <script src="payment-system/pushinpay-real.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <img src="assets/imagens/Bloom.png" alt="Bloom Logo" class="logo-image">
+                    </div>
+                    <span class="logo-text">Bloom</span>
+                </div>
+                <div class="center-text">Aproveite!</div>
+                <div class="header-actions">
+                    <button id="loginBtn" onclick="showLoginModal()" class="login-btn">
+                        <i class="fas fa-user"></i>
+                        Login
+                    </button>
+                    <div id="userInfo" class="user-info" style="display: none;">
+                        <!-- Conteúdo será preenchido via JavaScript -->
+                    </div>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb Navigation -->
+    <nav class="breadcrumb">
+        <div class="container">
+            <a href="index.html" class="breadcrumb-link">Início</a>
+            <i class="fas fa-chevron-right breadcrumb-separator"></i>
+            <a href="index.html#products" class="breadcrumb-link">Produtos</a>
+            <i class="fas fa-chevron-right breadcrumb-separator"></i>
+            <span class="breadcrumb-current" id="breadcrumbProduct">Produto</span>
+        </div>
+    </nav>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail-section">
+        <div class="container">
+            <div class="product-detail-container">
+                <!-- Product Media Area -->
+                <div class="product-media-area">
+                    <div class="product-media-container">
+                        <div class="product-media" id="productMedia">
+                            <!-- Conteúdo será preenchido via JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Info Area -->
+                <div class="product-info-area">
+                    <h1 class="product-title" id="productTitle">Nome do Produto</h1>
+                    
+                    <!-- Pricing Section -->
+                    <div class="product-pricing">
+                        <div class="price-original" id="priceOriginal" style="display: none;">
+                            <span class="original-price" id="originalPriceText">R$ 0,00</span>
+                            <span class="discount-badge" id="discountBadge">-0%</span>
+                        </div>
+                        <div class="price-current">
+                            <span class="current-price" id="currentPriceText">R$ 0,00</span>
+                            <div class="delivery-badge">
+                                <i class="fas fa-bolt"></i>
+                                Entrega Automática
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Count -->
+                    <div class="sales-count" id="salesCount" style="display: none;">
+                        <i class="fas fa-fire"></i>
+                        <span id="salesCountText">+0 Vendidos</span>
+                    </div>
+                </div>
+
+                <!-- Purchase Sidebar -->
+                <div class="purchase-sidebar">
+                    <div class="availability-info">
+                        <div class="stock-info">
+                            <span class="stock-label">Estoque disponível</span>
+                            <span class="stock-price" id="sidebarPrice">R$ 0,00</span>
+                        </div>
+                        <div class="stock-count" id="stockCount">72 Disponível</div>
+                    </div>
+
+                    <!-- Quantity Selector -->
+                    <div class="quantity-selector">
+                        <button class="qty-btn minus" onclick="changeQuantity(-1)">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <input type="number" id="quantityInput" value="1" min="1" max="99">
+                        <button class="qty-btn plus" onclick="changeQuantity(1)">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="btn-primary" onclick="buyNow()">
+                            <i class="fas fa-shopping-cart"></i>
+                            Comprar agora
+                        </button>
+                        <button class="btn-secondary" onclick="addToCart()">
+                            <i class="fas fa-plus"></i>
+                            Adicionar ao carrinho
+                        </button>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <h4>Meios de pagamentos</h4>
+                        <button class="payment-method-btn active">
+                            <i class="fas fa-qrcode"></i>
+                            À vista
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Description Section -->
+    <section class="product-description-section">
+        <div class="container">
+            <div class="description-container">
+                <h2 class="section-title">Descrição</h2>
+                <div class="description-content" id="productDescription">
+                    <!-- Conteúdo será preenchido via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Similar Products Section -->
+    <section class="similar-products-section">
+        <div class="container">
+            <h2 class="section-title">Produtos Similares</h2>
+            <div class="similar-products-carousel" id="similarProductsCarousel">
+                <!-- Produtos similares serão preenchidos via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Notification -->
+    <div class="social-proof-notification" id="socialProofNotification" style="display: none;">
+        <i class="fas fa-shopping-cart"></i>
+        <span id="socialProofText">Lucas M. Comprou Pack de audios</span>
+    </div>
+
+    <!-- WhatsApp Button -->
+    <div class="whatsapp-button" onclick="contactWhatsApp()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- Payment Modal (mantido do sistema original) -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content payment-modal">
+            <div class="modal-header">
+                <h2>Finalizar Compra</h2>
+                <span class="close" onclick="closePaymentModal()">&times;</span>
+            </div>
+            <!-- Tabs Navigation -->
+            <div class="modal-tabs">
+                <button class="tab-btn active" onclick="switchTab('description')" id="descriptionTab">
+                    <i class="fas fa-info-circle"></i>
+                    Descrição
+                </button>
+                <button class="tab-btn" onclick="switchTab('payment')" id="paymentTab">
+                    <i class="fas fa-credit-card"></i>
+                    Pagamento
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <!-- Description Tab -->
+                <div id="descriptionContent" class="tab-content active">
+                    <div class="product-info-detailed">
+                        <h3 id="productNameDesc">Produto</h3>
+                        <p class="payment-price" id="productPriceDesc">R$ 0,00</p>
+                        <div class="product-description-detailed" id="productDescriptionText">
+                            <!-- Descrição será preenchida via JavaScript -->
+                        </div>
+                        <div class="product-features">
+                            <h4>O que você recebe:</h4>
+                            <ul id="productFeaturesList">
+                                <!-- Features serão preenchidas via JavaScript -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Payment Tab -->
+                <div id="paymentContent" class="tab-content">
+                    <div class="payment-info">
+                        <h3 id="productName">Produto</h3>
+                        <p class="payment-price" id="productPrice">R$ 0,00</p>
+                    </div>
+                    
+                    <div class="payment-methods">
+                        <h4>Escolha a forma de pagamento:</h4>
+                        <button class="payment-method-btn active" onclick="selectPaymentMethod('pix')">
+                            <i class="fas fa-qrcode"></i>
+                            PIX
+                        </button>
+                    </div>
+                    
+                    <div id="pixSection" class="payment-section">
+                        <div class="qr-container">
+                            <div id="qrCode"></div>
+                            <p class="qr-instruction">Escaneie o QR Code com seu app de pagamento</p>
+                        </div>
+                        
+                        <div class="pix-code-container">
+                            <label for="pixCodeInput">📋 Ou copie o código PIX:</label>
+                            <div class="pix-input-group">
+                                <input type="text" id="pixCodeInput" readonly placeholder="Código PIX será exibido aqui...">
+                                <button onclick="copyPixCode()" class="copy-btn">
+                                    <i class="fas fa-copy"></i>
+                                    Copiar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="paymentStatus" class="payment-status-container">
+                        <div class="payment-status">
+                            <div class="payment-spinner"></div>
+                            <span>Aguardando pagamento...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" onclick="closePaymentModal()">Cancelar</button>
+                <button class="modal-btn primary" onclick="createPayment()" id="createPaymentBtn">
+                    <i class="fas fa-credit-card"></i>
+                    Gerar PIX
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="product-detail.js"></script>
+</body>
+</html>
